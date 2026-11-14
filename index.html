@@ -26,65 +26,62 @@
     <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-3">
 
       <!-- Left: Mobile Menu Toggle & App Logo -->
-      <div class="flex items-center gap-3">
-        <button onclick="toggleMobileSidebar()" class="lg:hidden p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20 transition" aria-label="Mở menu">
+      <div class="flex items-center gap-2.5 shrink-0">
+        <button onclick="toggleMobileSidebar()" class="lg:hidden p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20 transition shrink-0" aria-label="Mở menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
 
-        <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchView('dashboard')">
-          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 via-teal-500 to-amber-500 flex items-center justify-center font-editorial text-base font-bold text-slate-950 shadow-sm">
+        <div class="flex items-center gap-2 cursor-pointer shrink-0" onclick="switchView('dashboard')">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 via-teal-500 to-amber-500 flex items-center justify-center font-editorial text-base font-bold text-slate-950 shadow-sm shrink-0">
             Rx
           </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="font-semibold text-xs sm:text-sm tracking-tight">MedicaOS</span>
-              <span class="text-[10px] font-mono-code uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">90% Aesthetic • AI-Ready</span>
-            </div>
-            <p class="text-[11px] text-neutral-400 hidden sm:block">Hệ thống học tập, bệnh án SOAP &amp; Dược điển y dược lâm sàng</p>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sm tracking-tight whitespace-nowrap">MedicaOS</span>
+            <span class="text-[10px] font-mono-code uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold whitespace-nowrap hidden sm:inline-block">90% Aesthetic</span>
           </div>
         </div>
       </div>
 
-      <!-- Center: Main Module Navigation Tabs (Desktop) -->
-      <nav id="navControls" class="hidden xl:flex items-center bg-white/10 p-1 rounded-xl border border-white/10 text-xs">
-        <button id="navBtn_dashboard" onclick="switchView('dashboard')" class="px-3 py-1.5 rounded-lg font-semibold transition bg-white text-slate-900 shadow-sm">
-          1. Giao diện Mẫu
+      <!-- Center: Main Module Navigation Tabs (Compact, 100% single line whitespace-nowrap) -->
+      <nav id="navControls" class="hidden xl:flex items-center bg-white/10 p-1 rounded-xl border border-white/10 text-xs shrink-0">
+        <button id="navBtn_dashboard" onclick="switchView('dashboard')" class="px-2.5 py-1.5 rounded-lg font-semibold transition bg-white text-slate-900 shadow-sm whitespace-nowrap flex items-center gap-1.5">
+          <span>🌿</span> <span>Tổng quan</span>
         </button>
-        <button id="navBtn_soap" onclick="switchView('soap')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          2. Sổ Tay Bệnh Án (SOAP)
+        <button id="navBtn_soap" onclick="switchView('soap')" class="px-2.5 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white whitespace-nowrap flex items-center gap-1.5">
+          <span>🩺</span> <span>Bệnh án SOAP</span>
         </button>
-        <button id="navBtn_drugs" onclick="switchView('drugs')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          3. Dược Điển
+        <button id="navBtn_drugs" onclick="switchView('drugs')" class="px-2.5 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white whitespace-nowrap flex items-center gap-1.5">
+          <span>💊</span> <span>Dược điển</span>
         </button>
-        <button id="navBtn_calculators" onclick="switchView('calculators')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          4. Máy Tính Lâm Sàng
+        <button id="navBtn_calculators" onclick="switchView('calculators')" class="px-2.5 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white whitespace-nowrap flex items-center gap-1.5">
+          <span>🧮</span> <span>Máy tính</span>
         </button>
-        <button id="navBtn_flashcards" onclick="switchView('flashcards')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          5. Active Recall (Anki)
+        <button id="navBtn_flashcards" onclick="switchView('flashcards')" class="px-2.5 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white whitespace-nowrap flex items-center gap-1.5">
+          <span>🧠</span> <span>Active Recall</span>
         </button>
-        <button id="navBtn_library" onclick="switchView('library')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          6. Labo &amp; Giáo Trình
+        <button id="navBtn_library" onclick="switchView('library')" class="px-2.5 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white whitespace-nowrap flex items-center gap-1.5">
+          <span>📚</span> <span>Labo &amp; Sách</span>
         </button>
-        <button id="navBtn_tokens" onclick="switchView('tokens')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          7. Prompt Cho AI
+        <button id="navBtn_tokens" onclick="switchView('tokens')" class="px-2.5 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white whitespace-nowrap flex items-center gap-1.5">
+          <span>🤖</span> <span>Prompt AI</span>
         </button>
       </nav>
 
       <!-- Right: Audio Synthesizer Pill, Palette Switcher & Spotlight Search -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 shrink-0">
 
-        <!-- Ambient Lo-fi Audio Pill -->
-        <div id="audioAmbiancePill" class="hidden md:flex items-center gap-1.5 bg-white/10 px-2.5 py-1.5 rounded-xl border border-white/10 text-xs text-neutral-200 transition">
+        <!-- Ambient Lo-fi Audio Pill (Full on 2xl) -->
+        <div id="audioAmbiancePill" class="hidden 2xl:flex items-center gap-1.5 bg-white/10 px-2.5 py-1.5 rounded-xl border border-white/10 text-xs text-neutral-200 transition shrink-0">
           <div class="flex items-end gap-0.5 h-3">
             <span class="audio-bar h-1"></span>
             <span class="audio-bar h-2"></span>
             <span class="audio-bar h-3"></span>
             <span class="audio-bar h-1.5"></span>
           </div>
-          <button onclick="medicalAudio.toggleCurrent()" id="audioAmbianceLabel" class="font-mono-code text-[11px] hover:text-emerald-300">
-            Âm thanh Lo-fi (Tắt)
+          <button onclick="medicalAudio.toggleCurrent()" id="audioAmbianceLabel" class="font-mono-code text-[11px] hover:text-emerald-300 whitespace-nowrap">
+            Lo-fi (Tắt)
           </button>
           <div class="flex items-center gap-1 border-l border-white/15 pl-1.5">
             <button onclick="medicalAudio.playRain()" title="Tiếng mưa rơi" class="hover:text-emerald-300">🌧</button>
@@ -94,8 +91,19 @@
           </div>
         </div>
 
+        <!-- Compact Lo-fi Toggle for xl screens -->
+        <button onclick="medicalAudio.toggleCurrent()" class="hidden md:flex 2xl:hidden items-center gap-1.5 bg-white/10 hover:bg-white/20 px-2 py-1.5 rounded-xl border border-white/10 text-xs text-neutral-200 transition shrink-0 whitespace-nowrap font-mono-code" title="Bật/Tắt âm thanh thư giãn Lo-Fi">
+          <span class="flex items-end gap-0.5 h-3">
+            <span class="audio-bar h-1"></span>
+            <span class="audio-bar h-2"></span>
+            <span class="audio-bar h-3"></span>
+            <span class="audio-bar h-1.5"></span>
+          </span>
+          <span class="text-[11px]">Lo-fi</span>
+        </button>
+
         <!-- 3-Theme Palette Switcher -->
-        <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-xl border border-white/10" title="Đổi bảng màu">
+        <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-xl border border-white/10 shrink-0" title="Đổi bảng màu">
           <button onclick="setTheme('botanical')" id="paletteBtn_botanical" title="Botanical Apothecary (Mặc định)" class="w-5 h-5 rounded-full bg-[#F7F4EE] ring-2 ring-emerald-400 flex items-center justify-center transition">
             <span class="w-2.5 h-2.5 rounded-full bg-[#2F5243]"></span>
           </button>
@@ -108,7 +116,7 @@
         </div>
 
         <!-- Spotlight Search ⌘K Trigger -->
-        <button onclick="openSpotlightSearch()" class="px-2.5 py-1.5 rounded-xl text-xs font-mono-code bg-white/10 hover:bg-white/20 text-neutral-200 transition flex items-center gap-1.5">
+        <button onclick="openSpotlightSearch()" class="px-2.5 py-1.5 rounded-xl text-xs font-mono-code bg-white/10 hover:bg-white/20 text-neutral-200 transition flex items-center gap-1.5 shrink-0 whitespace-nowrap">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
           </svg>
@@ -117,7 +125,7 @@
         </button>
 
         <!-- Quick Data Export -->
-        <button onclick="exportAllDataJson()" title="Sao lưu dữ liệu MedicaOS ra file JSON" class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-neutral-200 transition text-xs">
+        <button onclick="exportAllDataJson()" title="Sao lưu dữ liệu MedicaOS ra file JSON" class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-neutral-200 transition text-xs shrink-0">
           💾
         </button>
       </div>

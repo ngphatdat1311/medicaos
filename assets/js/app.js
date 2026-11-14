@@ -96,9 +96,9 @@ function switchView(viewName, updateHash = true) {
 
     if (navBtn) {
       if (v === viewName) {
-        navBtn.className = 'px-3 py-1.5 rounded-lg font-semibold transition bg-white text-slate-900 shadow-sm';
+        navBtn.className = 'px-2.5 py-1.5 rounded-lg font-semibold transition bg-white text-slate-900 shadow-sm whitespace-nowrap flex items-center gap-1.5';
       } else {
-        navBtn.className = 'px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white';
+        navBtn.className = 'px-2.5 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white whitespace-nowrap flex items-center gap-1.5';
       }
     }
 
