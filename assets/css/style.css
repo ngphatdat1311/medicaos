@@ -1,0 +1,291 @@
+/* =====================================================================
+   MedicaOS — Website Y Dược & Lâm Sàng
+   Design System: Botanical Apothecary • Matcha Clinical • Midnight On-Call
+   ===================================================================== */
+
+:root {
+  /* Botanical Apothecary (Default Warm Alabaster & Sage) */
+  --bg-canvas: #F7F4EE;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #EFECE4;
+  --bg-callout: #F2EFE7;
+  --text-primary: #1F2924;
+  --text-secondary: #5A655E;
+  --text-muted: #88938C;
+  --accent-primary: #2F5243;
+  --accent-primary-hover: #244135;
+  --accent-secondary: #C86D51;
+  --accent-gold: #B68D40;
+  --border-color: #E4DFD3;
+  --row-hover: rgba(31, 41, 36, 0.04);
+
+  --badge-emerald-bg: rgba(16, 185, 129, 0.14);
+  --badge-emerald-text: #047857;
+  --badge-amber-bg: rgba(245, 158, 11, 0.16);
+  --badge-amber-text: #B45309;
+  --badge-rose-bg: rgba(244, 63, 94, 0.14);
+  --badge-rose-text: #BE123C;
+  --badge-blue-bg: rgba(59, 130, 246, 0.14);
+  --badge-blue-text: #1D4ED8;
+  --badge-purple-bg: rgba(147, 51, 234, 0.14);
+  --badge-purple-text: #7E22CE;
+
+  --card-shadow: 0 10px 30px -10px rgba(47, 82, 67, 0.08);
+  --modal-overlay: rgba(15, 23, 20, 0.6);
+}
+
+[data-theme="matcha"] {
+  /* Matcha Clinical (Fresh Ivory & Moss) */
+  --bg-canvas: #F3F7F4;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #E6EFE9;
+  --bg-callout: #EBF3EE;
+  --text-primary: #182620;
+  --text-secondary: #4A6156;
+  --text-muted: #7B9287;
+  --accent-primary: #2D6A4F;
+  --accent-primary-hover: #1B4D3E;
+  --accent-secondary: #E07A5F;
+  --accent-gold: #D4A373;
+  --border-color: #D8E5DD;
+  --row-hover: rgba(24, 38, 32, 0.04);
+
+  --badge-emerald-bg: rgba(16, 185, 129, 0.15);
+  --badge-emerald-text: #047857;
+  --badge-amber-bg: rgba(245, 158, 11, 0.16);
+  --badge-amber-text: #B45309;
+  --badge-rose-bg: rgba(244, 63, 94, 0.14);
+  --badge-rose-text: #BE123C;
+  --badge-blue-bg: rgba(59, 130, 246, 0.14);
+  --badge-blue-text: #1D4ED8;
+  --badge-purple-bg: rgba(147, 51, 234, 0.14);
+  --badge-purple-text: #7E22CE;
+
+  --card-shadow: 0 10px 30px -10px rgba(45, 106, 79, 0.08);
+  --modal-overlay: rgba(15, 23, 20, 0.6);
+}
+
+[data-theme="midnight"] {
+  /* Midnight On-Call (Dark Mode Trực Đêm Dịu Mắt) */
+  --bg-canvas: #111614;
+  --bg-surface: #18221D;
+  --bg-subtle: #212D27;
+  --bg-callout: #25332C;
+  --text-primary: #E8EFEA;
+  --text-secondary: #A3B5AC;
+  --text-muted: #6B7D74;
+  --accent-primary: #52B788;
+  --accent-primary-hover: #40916C;
+  --accent-secondary: #E58C72;
+  --accent-gold: #E0BA73;
+  --border-color: #2A3B33;
+  --row-hover: rgba(232, 239, 234, 0.04);
+
+  --badge-emerald-bg: rgba(82, 183, 136, 0.2);
+  --badge-emerald-text: #74C69D;
+  --badge-amber-bg: rgba(245, 158, 11, 0.2);
+  --badge-amber-text: #FBBF24;
+  --badge-rose-bg: rgba(244, 63, 94, 0.2);
+  --badge-rose-text: #FB7185;
+  --badge-blue-bg: rgba(96, 165, 250, 0.2);
+  --badge-blue-text: #93C5FD;
+  --badge-purple-bg: rgba(192, 132, 252, 0.2);
+  --badge-purple-text: #D8B4FE;
+
+  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --modal-overlay: rgba(0, 0, 0, 0.75);
+}
+
+/* 3-Font Typography Pairing */
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+}
+
+.font-editorial {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Semantic UI Color Classes */
+.notion-surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+.notion-subtle {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+}
+
+.notion-callout {
+  background-color: var(--bg-callout);
+  border: 1px solid var(--border-color);
+}
+
+.border-theme {
+  border-color: var(--border-color);
+}
+
+.text-main {
+  color: var(--text-primary);
+}
+
+.text-sub {
+  color: var(--text-secondary);
+}
+
+.text-mute {
+  color: var(--text-muted);
+}
+
+.accent-main {
+  color: var(--accent-primary);
+}
+
+.btn-primary-theme {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+}
+
+[data-theme="midnight"] .btn-primary-theme {
+  color: #111614;
+}
+
+.btn-primary-theme:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+.row-hover-theme:hover {
+  background-color: var(--row-hover);
+}
+
+/* Badges */
+.badge-emerald {
+  background-color: var(--badge-emerald-bg);
+  color: var(--badge-emerald-text);
+}
+
+.badge-amber {
+  background-color: var(--badge-amber-bg);
+  color: var(--badge-amber-text);
+}
+
+.badge-rose {
+  background-color: var(--badge-rose-bg);
+  color: var(--badge-rose-text);
+}
+
+.badge-blue {
+  background-color: var(--badge-blue-bg);
+  color: var(--badge-blue-text);
+}
+
+.badge-purple {
+  background-color: var(--badge-purple-bg);
+  color: var(--badge-purple-text);
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 147, 140, 0.35);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 147, 140, 0.6);
+}
+
+/* 3D Flip Card Animation for Active Recall Flashcards */
+.flip-card-container {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1rem;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Audio Visualizer Pulse */
+@keyframes audioPulse {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+.audio-bar {
+  display: inline-block;
+  width: 3px;
+  background-color: var(--accent-primary);
+  border-radius: 2px;
+}
+
+.audio-playing .audio-bar:nth-child(1) { animation: audioPulse 0.8s ease infinite; }
+.audio-playing .audio-bar:nth-child(2) { animation: audioPulse 0.6s ease infinite 0.2s; }
+.audio-playing .audio-bar:nth-child(3) { animation: audioPulse 1.0s ease infinite 0.4s; }
+.audio-playing .audio-bar:nth-child(4) { animation: audioPulse 0.7s ease infinite 0.1s; }
+
+/* Modal Transitions */
+.modal-overlay {
+  background-color: var(--modal-overlay);
+  backdrop-filter: blur(4px);
+}
+
+/* Print styles for SOAP Clinical Notes */
+@media print {
+  aside,
+  header,
+  #topBar,
+  #navControls,
+  .no-print {
+    display: none !important;
+  }
+  body, main, #viewSoap {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .notion-surface, .notion-subtle, .notion-callout {
+    box-shadow: none !important;
+    border: 1px solid #CCCCCC !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .print-break {
+    page-break-after: always;
+  }
+}
