@@ -293,31 +293,37 @@
 
         <!-- NOTION HEADER INFO & FLOATING AVATAR -->
         <div class="max-w-6xl mx-auto px-4 sm:px-8">
-          <div class="relative -mt-12 sm:-mt-14 flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-theme">
-            <!-- Floating Icon + Title -->
-            <div class="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4">
-              <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl notion-surface p-1 shadow-xl shrink-0 overflow-hidden bg-white">
-                <img src="assets/images/avatar_rx.png" alt="Aesthetic Botanical Rx" class="w-full h-full object-cover rounded-xl" />
-              </div>
-              <div class="min-w-0 pt-2 sm:pt-0 sm:pb-1">
-                <div class="flex items-center gap-2 flex-wrap mb-1">
-                  <span class="text-[11px] font-mono-code uppercase text-mute tracking-wider font-semibold">Học Kỳ II • Năm Học 2026</span>
-                  <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-full badge-emerald font-semibold">OSCE Ready</span>
+          <div class="relative -mt-10 sm:-mt-12 pb-6 border-b border-theme space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <!-- Floating Icon + Title -->
+              <div class="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl notion-surface p-1.5 shadow-xl shrink-0 overflow-hidden bg-white">
+                  <img src="assets/images/avatar_rx.png" alt="Aesthetic Botanical Rx" class="w-full h-full object-cover rounded-xl" />
                 </div>
-                <h1 class="font-editorial text-2xl sm:text-4xl tracking-tight text-main leading-none">
-                  MedicaOS — Sổ Tay Lâm Sàng & Dược Điển Y Dược
-                </h1>
+                <div class="min-w-0 pb-1">
+                  <div class="flex items-center gap-2 flex-wrap mb-1.5">
+                    <span class="text-[11px] font-mono-code uppercase px-2 py-0.5 rounded-md notion-subtle text-sub tracking-wider font-semibold">
+                      Học Kỳ II • Năm Học 2026
+                    </span>
+                    <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-full badge-emerald font-semibold">
+                      OSCE Ready
+                    </span>
+                  </div>
+                  <h1 class="font-editorial text-2xl sm:text-4xl tracking-tight text-main leading-none">
+                    MedicaOS — Sổ Tay Lâm Sàng & Dược Điển Y Dược
+                  </h1>
+                </div>
               </div>
-            </div>
 
-            <!-- Quick Action Buttons -->
-            <div class="flex items-center gap-2 shrink-0">
-              <button onclick="switchView('soap')" class="px-3.5 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition shadow-sm flex items-center gap-1.5">
-                <span>+ Tạo Bệnh Án</span>
-              </button>
-              <button onclick="switchView('calculators')" class="px-3 py-2 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition flex items-center gap-1.5">
-                <span>🧮 Máy Tính</span>
-              </button>
+              <!-- Quick Action Buttons -->
+              <div class="flex items-center gap-2 shrink-0">
+                <button onclick="switchView('soap')" class="px-3.5 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition shadow-sm flex items-center gap-1.5">
+                  <span>+ Tạo Bệnh Án</span>
+                </button>
+                <button onclick="switchView('calculators')" class="px-3 py-2 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition flex items-center gap-1.5">
+                  <span>🧮 Máy Tính</span>
+                </button>
+              </div>
             </div>
           </div>
 
