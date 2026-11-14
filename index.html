@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MedicaOS — Website Học Tập & Bệnh Án Y Dược</title>
+  <title>MedicaOS — Website Học Tập &amp; Bệnh Án Y Dược</title>
   <meta name="description" content="Website học tập, quản lý bệnh án SOAP, dược điển bỏ túi, spaced repetition và máy tính lâm sàng dành cho sinh viên Y Dược." />
 
   <!-- Tailwind CSS 3.4 CDN -->
@@ -22,7 +22,7 @@
   <!-- =====================================================================
        TOP APP NAVIGATION HEADER
        ===================================================================== -->
-  <header id="topBar" class="sticky top-0 z-40 backdrop-blur-md bg-black/85 text-white border-b border-white/10 px-3 sm:px-6 py-2.5">
+  <header id="topBar" class="sticky top-0 z-40 backdrop-blur-md bg-black/85 text-white border-b border-white/10 px-3 sm:px-5 py-2.5">
     <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-3">
 
       <!-- Left: Mobile Menu Toggle & App Logo -->
@@ -34,15 +34,15 @@
         </button>
 
         <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchView('dashboard')">
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 via-teal-500 to-amber-500 flex items-center justify-center font-editorial text-lg font-bold text-slate-950 shadow-sm">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 via-teal-500 to-amber-500 flex items-center justify-center font-editorial text-base font-bold text-slate-950 shadow-sm">
             Rx
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-bold text-sm tracking-tight">MedicaOS</span>
-              <span class="text-[10px] font-mono-code uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">Y Dược Lâm Sàng</span>
+              <span class="font-semibold text-xs sm:text-sm tracking-tight">MedicaOS</span>
+              <span class="text-[10px] font-mono-code uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">90% Aesthetic • AI-Ready</span>
             </div>
-            <p class="text-[11px] text-neutral-400 hidden sm:block">Hệ thống học tập, bệnh án SOAP & Dược điển bỏ túi</p>
+            <p class="text-[11px] text-neutral-400 hidden sm:block">Hệ thống học tập, bệnh án SOAP &amp; Dược điển y dược lâm sàng</p>
           </div>
         </div>
       </div>
@@ -50,22 +50,25 @@
       <!-- Center: Main Module Navigation Tabs (Desktop) -->
       <nav id="navControls" class="hidden xl:flex items-center bg-white/10 p-1 rounded-xl border border-white/10 text-xs">
         <button id="navBtn_dashboard" onclick="switchView('dashboard')" class="px-3 py-1.5 rounded-lg font-semibold transition bg-white text-slate-900 shadow-sm">
-          🌿 Dashboard
+          1. Giao diện Mẫu
         </button>
         <button id="navBtn_soap" onclick="switchView('soap')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          🩺 Bệnh Án SOAP
+          2. Sổ Tay Bệnh Án (SOAP)
         </button>
         <button id="navBtn_drugs" onclick="switchView('drugs')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          💊 Dược Điển
+          3. Dược Điển
         </button>
         <button id="navBtn_calculators" onclick="switchView('calculators')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          🧮 Máy Tính Lâm Sàng
+          4. Máy Tính Lâm Sàng
         </button>
         <button id="navBtn_flashcards" onclick="switchView('flashcards')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          🧠 Active Recall
+          5. Active Recall (Anki)
         </button>
         <button id="navBtn_library" onclick="switchView('library')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
-          📚 Labo & Giáo Trình
+          6. Labo &amp; Giáo Trình
+        </button>
+        <button id="navBtn_tokens" onclick="switchView('tokens')" class="px-3 py-1.5 rounded-lg font-medium transition text-neutral-300 hover:text-white">
+          7. Prompt Cho AI
         </button>
       </nav>
 
@@ -109,7 +112,7 @@
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
           </svg>
-          <span class="hidden sm:inline">Tìm kiếm</span>
+          <span class="hidden sm:inline">Tìm</span>
           <span class="border border-white/20 px-1 py-0.2 rounded text-[10px]">⌘K</span>
         </button>
 
@@ -123,7 +126,7 @@
   </header>
 
   <!-- =====================================================================
-       MAIN WORKSPACE WRAPPER (SIDEBAR + MAIN CONTENT)
+       MAIN WORKSPACE CONTAINER (SIDEBAR + MAIN CONTENT)
        ===================================================================== -->
   <div class="flex-1 max-w-[1440px] w-full mx-auto flex flex-col lg:flex-row relative">
 
@@ -131,88 +134,72 @@
     <div id="sidebarBackdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
 
     <!-- =====================================================================
-         LEFT SIDEBAR (COLLAPSIBLE ON MOBILE, FIXED ON DESKTOP)
+         LEFT SIDEBAR (COLLAPSIBLE ON MOBILE, STICKY ON DESKTOP)
          ===================================================================== -->
-    <aside id="mainSidebar" class="fixed inset-y-0 left-0 z-40 lg:static w-72 shrink-0 border-r border-theme p-4 flex flex-col justify-between notion-subtle transition-transform duration-300 transform -translate-x-full lg:translate-x-0 overflow-y-auto">
+    <aside id="mainSidebar" class="fixed inset-y-0 left-0 z-40 lg:sticky lg:top-14 lg:self-start lg:max-h-[calc(100vh-3.5rem)] w-64 shrink-0 border-r border-theme p-4 flex flex-col justify-between notion-subtle transition-transform duration-300 transform -translate-x-full lg:translate-x-0 overflow-y-auto">
       <div class="space-y-5">
 
         <!-- Student Profile Widget -->
-        <div class="flex items-center justify-between px-3 py-2.5 rounded-2xl notion-surface shadow-sm">
+        <div class="flex items-center justify-between px-2.5 py-2 rounded-xl notion-surface shadow-sm">
           <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl flex items-center justify-center font-editorial text-xl font-bold text-white shadow-sm" style="background-color: var(--accent-primary);">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center font-editorial text-lg font-bold text-white shadow-sm" style="background-color: var(--accent-primary);">
               Rx
             </div>
             <div>
               <div class="text-xs font-bold text-main leading-tight">MedicaOS • Y Dược</div>
-              <div class="text-[10px] text-mute font-mono-code">Kỳ Thực Tập Lâm Sàng II</div>
+              <div class="text-[10px] text-mute font-mono-code">Học kỳ Lâm sàng II</div>
             </div>
           </div>
-          <span class="text-[10px] px-2 py-0.5 rounded-full badge-emerald font-mono-code font-bold">Y5/D4</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded badge-emerald font-mono-code font-semibold">PRO</span>
         </div>
 
         <!-- Quick Spotlight Search Input -->
         <div class="relative cursor-pointer" onclick="openSpotlightSearch()">
-          <input type="text" readonly placeholder="Tìm môn, thuốc, bệnh án... (⌘K)" class="w-full text-xs pl-8 pr-8 py-2 rounded-xl notion-surface text-main placeholder:text-mute cursor-pointer focus:outline-none ring-1 ring-transparent hover:ring-emerald-600/40" />
+          <input type="text" readonly placeholder="Tìm học phần, thuốc, ICD-10..." class="w-full text-xs pl-8 pr-8 py-2 rounded-xl notion-surface text-main placeholder:text-mute cursor-pointer focus:outline-none ring-1 ring-transparent hover:ring-emerald-600/40" />
           <svg class="w-3.5 h-3.5 text-mute absolute left-2.5 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
           </svg>
-          <span class="text-[9px] font-mono-code text-mute absolute right-2.5 top-2 border border-theme px-1 rounded">⌘K</span>
+          <span class="text-[10px] font-mono-code text-mute absolute right-2.5 top-2 border border-theme px-1 rounded">⌘K</span>
         </div>
 
         <!-- Navigation Menu Links -->
-        <div class="space-y-1.5">
-          <div class="text-[10px] font-mono-code uppercase tracking-wider text-mute px-2">Không Gian Làm Việc</div>
+        <div class="space-y-2.5">
+          <div class="text-[10px] font-mono-code uppercase tracking-wider text-mute px-2">Không Gian Học Tập</div>
           <nav class="space-y-1 text-xs">
-            <button id="sideNavBtn_dashboard" onclick="switchView('dashboard')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold notion-surface text-main transition shadow-sm">
-              <span class="flex items-center gap-2.5"><span>🌿</span> <span>Dashboard Tổng Quan</span></span>
+            <button id="sideNavBtn_dashboard" onclick="switchView('dashboard')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium notion-surface text-main transition shadow-sm">
+              <span class="flex items-center gap-2"><span>🌿</span> <span>Dashboard Tổng quan</span></span>
               <span class="text-[10px] font-mono-code text-mute">Home</span>
             </button>
-            <button id="sideNavBtn_soap" onclick="switchView('soap')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
-              <span class="flex items-center gap-2.5"><span>🩺</span> <span>Sổ Tay Bệnh Án (SOAP)</span></span>
-              <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded-full badge-amber font-semibold">4 ca</span>
+            <button id="sideNavBtn_soap" onclick="switchView('soap')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
+              <span class="flex items-center gap-2"><span>🩺</span> <span>Sổ tay Bệnh án (SOAP)</span></span>
+              <span id="sideSoapBadge" class="text-[10px] font-mono-code px-1.5 py-0.5 rounded-full badge-amber font-semibold">4 ca</span>
             </button>
-            <button id="sideNavBtn_drugs" onclick="switchView('drugs')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
-              <span class="flex items-center gap-2.5"><span>💊</span> <span>Dược Điển Bỏ Túi</span></span>
-              <span class="text-[10px] font-mono-code text-mute">Rx Formulary</span>
+            <button id="sideNavBtn_drugs" onclick="switchView('drugs')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
+              <span class="flex items-center gap-2"><span>💊</span> <span>Dược điển &amp; Hoạt chất</span></span>
+              <span class="text-[10px] font-mono-code text-mute">Rx</span>
             </button>
-            <button id="sideNavBtn_calculators" onclick="switchView('calculators')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
-              <span class="flex items-center gap-2.5"><span>🧮</span> <span>Máy Tính Lâm Sàng</span></span>
+            <button id="sideNavBtn_calculators" onclick="switchView('calculators')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
+              <span class="flex items-center gap-2"><span>🧮</span> <span>Máy tính Lâm sàng</span></span>
               <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded-full badge-blue">6 công cụ</span>
             </button>
-            <button id="sideNavBtn_flashcards" onclick="switchView('flashcards')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
-              <span class="flex items-center gap-2.5"><span>🧠</span> <span>Active Recall (Anki)</span></span>
-              <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded-full badge-rose">3D Flip</span>
+            <button id="sideNavBtn_flashcards" onclick="switchView('flashcards')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
+              <span class="flex items-center gap-2"><span>🧠</span> <span>Active Recall &amp; Anki</span></span>
+              <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded-full badge-rose">4 cần ôn</span>
             </button>
-            <button id="sideNavBtn_library" onclick="switchView('library')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
-              <span class="flex items-center gap-2.5"><span>📚</span> <span>Labo & Giáo Trình</span></span>
-              <span class="text-[10px] font-mono-code text-mute">Reference</span>
+            <button id="sideNavBtn_library" onclick="switchView('library')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
+              <span class="flex items-center gap-2"><span>📚</span> <span>Labo &amp; Giáo trình</span></span>
+              <span class="text-[10px] font-mono-code text-mute">Ref</span>
+            </button>
+            <button id="sideNavBtn_tokens" onclick="switchView('tokens')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition">
+              <span class="flex items-center gap-2"><span>🤖</span> <span>Prompt &amp; Spec Cho AI</span></span>
+              <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded-full badge-emerald">Copy</span>
             </button>
           </nav>
         </div>
 
-        <!-- Sidebar Mini Pomodoro Card -->
-        <div class="p-3.5 rounded-2xl notion-surface space-y-2.5">
-          <div class="flex items-center justify-between">
-            <span class="text-[10px] font-mono-code uppercase tracking-wider text-mute">☕ Lo-Fi Timer</span>
-            <span id="sidePomoDisplay" class="font-editorial text-xl font-bold text-main">25:00</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <button onclick="togglePomodoro()" class="flex-1 py-1.5 rounded-xl text-xs font-semibold btn-primary-theme transition text-center">
-              Bắt đầu / Tạm dừng
-            </button>
-            <button onclick="resetPomodoro()" class="px-2.5 py-1.5 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition">
-              Reset
-            </button>
-          </div>
-          <div class="text-[10px] text-mute flex justify-between">
-            <span>Tiến độ ngày:</span>
-            <span id="pomoSessionCounter" class="font-mono-code text-main font-semibold">7/12 phiên</span>
-          </div>
-        </div>
-
         <!-- Aesthetic Theme Palette Switcher -->
         <div class="space-y-2 pt-2 border-t border-theme">
-          <div class="text-[10px] font-mono-code uppercase tracking-wider text-mute px-2">Giao Diện Mẫu (Palette)</div>
+          <div class="text-[10px] font-mono-code uppercase tracking-wider text-mute px-2">Đổi Bảng Màu Giao Diện</div>
           <div class="grid grid-cols-3 gap-1.5">
             <button id="sidePaletteBtn_botanical" onclick="setTheme('botanical')" class="p-2 rounded-xl notion-surface text-left ring-2 ring-emerald-600/70 transition">
               <div class="flex items-center gap-1 mb-1">
@@ -248,7 +235,7 @@
             <span class="text-[10px] font-mono-code uppercase tracking-wider text-mute">Đếm ngược OSCE</span>
             <span class="text-xs font-mono-code font-bold px-2 py-0.5 rounded-full badge-amber">Còn 18 ngày</span>
           </div>
-          <div class="text-xs font-bold text-main">Thi Thực Hành Lâm Sàng Nội - Dược</div>
+          <div class="text-xs font-semibold text-main">Thi Thực hành Lâm sàng Nội - Dược</div>
           <div class="w-full h-1.5 rounded-full bg-black/10 overflow-hidden">
             <div class="h-full rounded-full" style="width: 74%; background-color: var(--accent-primary);"></div>
           </div>
@@ -276,61 +263,57 @@
     <main class="flex-1 min-w-0">
 
       <!-- =================================================================
-           VIEW 1: DASHBOARD TỔNG QUAN (12-COLUMN ASYMMETRIC BENTO GRID)
+           VIEW 1: LIVE NOTION AESTHETIC DASHBOARD (12-COL ASYMMETRIC BENTO)
            ================================================================= -->
-      <section id="view_dashboard" class="pb-16">
+      <div id="view_dashboard" class="pb-16">
 
-        <!-- NOTION-STYLE HERO COVER BANNER -->
-        <div class="relative w-full h-48 sm:h-64 bg-slate-800 overflow-hidden">
-          <img src="assets/images/banner.webp" alt="MedicaOS Banner" class="w-full h-full object-cover opacity-85" onerror="this.src='assets/images/banner_original.jpg'" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-          <div class="absolute top-4 right-4 flex items-center gap-2">
-            <span class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg bg-black/60 text-white/90 backdrop-blur-md border border-white/20">
-              📍 Bệnh Viện ĐHYD TPHCM
+        <!-- HERO COVER BANNER -->
+        <div class="relative h-48 sm:h-60 w-full overflow-hidden border-b border-theme">
+          <img src="assets/images/banner_original.jpg" alt="MedicaOS Cover Banner" class="w-full h-full object-cover" />
+          <div class="absolute bottom-4 right-4 hidden sm:block">
+            <span class="text-[11px] backdrop-blur-md bg-black/45 text-white/90 px-3 py-1 rounded-full border border-white/15 font-mono-code">
+              ✦ Aesthetic Medical &amp; Apothecary Edition
             </span>
           </div>
         </div>
 
-        <!-- NOTION HEADER INFO & FLOATING AVATAR -->
-        <div class="max-w-6xl mx-auto px-4 sm:px-8">
-          <div class="relative -mt-10 sm:-mt-12 pb-6 border-b border-theme space-y-3">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <!-- Floating Icon + Title -->
-              <div class="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl notion-surface p-1.5 shadow-xl shrink-0 overflow-hidden bg-white">
-                  <img src="assets/images/avatar_rx.png" alt="Aesthetic Botanical Rx" class="w-full h-full object-cover rounded-xl" />
-                </div>
-                <div class="min-w-0 pb-1">
-                  <div class="flex items-center gap-2 flex-wrap mb-1.5">
-                    <span class="text-[11px] font-mono-code uppercase px-2 py-0.5 rounded-md notion-subtle text-sub tracking-wider font-semibold">
-                      Học Kỳ II • Năm Học 2026
-                    </span>
-                    <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-full badge-emerald font-semibold">
-                      OSCE Ready
-                    </span>
-                  </div>
-                  <h1 class="font-editorial text-2xl sm:text-4xl tracking-tight text-main leading-none">
-                    MedicaOS — Sổ Tay Lâm Sàng & Dược Điển Y Dược
-                  </h1>
-                </div>
-              </div>
+        <!-- NOTION PAGE CONTAINER -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-8 relative z-10 space-y-6">
 
-              <!-- Quick Action Buttons -->
-              <div class="flex items-center gap-2 shrink-0">
-                <button onclick="switchView('soap')" class="px-3.5 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition shadow-sm flex items-center gap-1.5">
-                  <span>+ Tạo Bệnh Án</span>
-                </button>
-                <button onclick="switchView('calculators')" class="px-3 py-2 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition flex items-center gap-1.5">
-                  <span>🧮 Máy Tính</span>
-                </button>
-              </div>
+          <!-- Floating Notion Icon & Header Actions Bar -->
+          <div class="flex items-end justify-between gap-4 -mt-10 sm:-mt-12">
+            <!-- Icon hovering 50% on banner, 50% on canvas -->
+            <div class="w-20 h-20 sm:w-22 sm:h-22 rounded-2xl notion-surface p-2 flex items-center justify-center shadow-xl border notion-border shrink-0 bg-white">
+              <img src="assets/images/avatar_rx.png" alt="Anatomical Heart Icon" class="w-full h-full object-cover rounded-xl" />
+            </div>
+
+            <!-- Quick Action Buttons: Cleanly sitting on page canvas -->
+            <div class="flex items-center gap-2">
+              <button onclick="switchView('soap')" class="px-3.5 py-2 rounded-xl text-xs font-semibold notion-surface text-main hover:opacity-80 transition flex items-center gap-1.5 shadow-sm border notion-border">
+                <span>+ Tạo Bệnh Án SOAP</span>
+              </button>
+              <button onclick="openNewFlashcardModal()" class="px-3.5 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition flex items-center gap-1.5 shadow-sm">
+                <span>+ Thêm Flashcard Thuốc</span>
+              </button>
             </div>
           </div>
 
-          <!-- NOTION CALLOUT BANNER: HIPPOCRATES QUOTE & NEXT SHIFT -->
-          <div class="my-6 p-4 rounded-2xl notion-callout flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <!-- Page Title & Subtitle: Completely on canvas, zero overlap with banner -->
+          <div class="pt-1">
+            <div class="flex items-center gap-2 text-xs font-mono-code text-sub">
+              <span>Y ĐA KHOA &amp; DƯỢC HỌC</span>
+              <span>•</span>
+              <span>CLINICAL ARCHIVE 2026</span>
+            </div>
+            <h1 class="font-editorial text-3xl sm:text-5xl tracking-tight text-main leading-tight mt-1.5">
+              MedicaOS — Sổ Tay Lâm Sàng &amp; Dược Điển
+            </h1>
+          </div>
+
+          <!-- AESTHETIC CALLOUT QUOTE & QUICK NAVIGATION BAR -->
+          <div class="p-4 rounded-2xl notion-callout flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex items-start gap-3">
-              <span class="text-2xl mt-0.5">🌿</span>
+              <span class="text-xl mt-0.5">🌿</span>
               <div>
                 <p class="font-editorial italic text-lg sm:text-xl text-main leading-snug">
                   “Wherever the art of Medicine is loved, there is also a love of Humanity.” — Hippocrates
@@ -341,19 +324,20 @@
               </div>
             </div>
             <div class="flex flex-wrap items-center gap-1.5 shrink-0">
-              <span class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main">🧬 Giải phẫu</span>
-              <span class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main">💊 Dược lý</span>
-              <span class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main">🫀 Nội khoa</span>
-              <span class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main">🧪 Hóa dược</span>
+              <button onclick="filterCategory('all')" class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main border notion-border hover:opacity-80 transition">Tất cả</button>
+              <button onclick="filterCategory('y')" class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main border notion-border hover:opacity-80 transition">🧬 Giải phẫu</button>
+              <button onclick="filterCategory('duoc')" class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main border notion-border hover:opacity-80 transition">💊 Dược lý</button>
+              <button onclick="filterCategory('y')" class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main border notion-border hover:opacity-80 transition">🫀 Nội khoa</button>
+              <button onclick="filterCategory('duoc')" class="text-[11px] font-mono-code px-2.5 py-1 rounded-lg notion-surface text-main border notion-border hover:opacity-80 transition">🧪 Hóa dược</button>
             </div>
           </div>
 
-          <!-- 3-COLUMN BENTO GRID: POMODORO & LAB + SUBJECT GALLERY + CLINICAL CHECKLIST -->
+          <!-- 3-COLUMN TOP ROW: POMODORO WIDGET + SUBJECT GALLERY + CLINICAL CHECKLIST -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-            <!-- COL 1 (3/12 cols): Pomodoro Lo-fi + Quick CrCl Calculator -->
+            <!-- COL 1 (3 cols): Aesthetic Pomodoro + Quick Clinical CrCl Calculator -->
             <div class="lg:col-span-3 space-y-4">
-              <!-- Pomodoro Timer Card -->
+              <!-- Lo-Fi Study Timer -->
               <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm">
                 <div class="flex items-center justify-between">
                   <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">☕ Lo-Fi Study Timer</span>
@@ -361,192 +345,252 @@
                 </div>
 
                 <div class="text-center py-2">
-                  <div id="pomoDisplay" class="font-editorial text-5xl sm:text-6xl tracking-tight text-main font-normal">25:00</div>
+                  <div id="pomoDisplay" class="font-editorial text-5xl sm:text-6xl tracking-tight text-main">25:00</div>
                   <p class="text-xs text-sub mt-1">Đang ôn: <span class="font-medium text-main">Kháng sinh Beta-lactam</span></p>
                 </div>
 
                 <div class="flex items-center justify-center gap-2">
-                  <button id="pomoToggleBtn" onclick="togglePomodoro()" class="flex-1 py-2.5 rounded-xl text-xs font-semibold btn-primary-theme transition">
+                  <button id="pomoToggleBtn" onclick="togglePomodoro()" class="flex-1 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition">
                     Bắt đầu học
                   </button>
-                  <button onclick="resetPomodoro()" class="px-3 py-2.5 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition">
+                  <button onclick="resetPomodoro()" class="px-3 py-2 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition">
                     Reset
                   </button>
                 </div>
 
                 <div class="pt-3 border-t border-theme flex items-center justify-between text-[11px] text-sub">
-                  <span>Hôm nay đã học:</span>
-                  <span class="font-mono-code font-semibold text-main">3h 45m (9 pomo)</span>
+                  <span>Hôm nay đã học</span>
+                  <span class="font-mono-code font-semibold text-main">3h 45m (9/12 pomo)</span>
                 </div>
               </div>
 
-              <!-- Quick CrCl Cockcroft-Gault Calculator -->
+              <!-- Quick CrCl Cockcroft-Gault Calculator & Normal Lab Values -->
               <div class="p-4 rounded-2xl notion-surface space-y-3 shadow-sm">
                 <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">🧮 Tính Nhanh CrCl (Thận)</span>
-                  <span class="text-[10px] font-mono-code badge-emerald px-1.5 py-0.5 rounded font-semibold">Cockcroft</span>
+                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">🧮 Tính Nhanh CrCl (Chỉnh liều)</span>
+                  <span class="text-[10px] font-mono-code badge-emerald px-1.5 py-0.5 rounded font-semibold">Cockcroft-Gault</span>
                 </div>
                 <div class="grid grid-cols-3 gap-1.5 text-xs">
                   <div>
                     <label class="text-[10px] text-mute font-mono-code block">Tuổi</label>
-                    <input id="quickCrclAge" type="number" value="64" oninput="calcQuickCrCl()" class="w-full px-2 py-1 rounded-lg notion-subtle text-main font-mono-code text-xs" />
+                    <input id="crclAge" type="number" value="64" oninput="calcCrClQuick()" class="w-full px-2 py-1 rounded-lg notion-subtle text-main font-mono-code text-xs" />
                   </div>
                   <div>
                     <label class="text-[10px] text-mute font-mono-code block">Cân (kg)</label>
-                    <input id="quickCrclWeight" type="number" value="62" oninput="calcQuickCrCl()" class="w-full px-2 py-1 rounded-lg notion-subtle text-main font-mono-code text-xs" />
+                    <input id="crclWeight" type="number" value="62" oninput="calcCrClQuick()" class="w-full px-2 py-1 rounded-lg notion-subtle text-main font-mono-code text-xs" />
                   </div>
                   <div>
                     <label class="text-[10px] text-mute font-mono-code block">Scr (mg/dL)</label>
-                    <input id="quickCrclScr" type="number" step="0.1" value="1.4" oninput="calcQuickCrCl()" class="w-full px-2 py-1 rounded-lg notion-subtle text-main font-mono-code text-xs" />
+                    <input id="crclScr" type="number" step="0.1" value="1.4" oninput="calcCrClQuick()" class="w-full px-2 py-1 rounded-lg notion-subtle text-main font-mono-code text-xs" />
                   </div>
                 </div>
-                <label class="flex items-center gap-1.5 text-[11px] text-sub cursor-pointer">
-                  <input id="quickCrclFemale" type="checkbox" onchange="calcQuickCrCl()" class="rounded text-emerald-600 focus:ring-emerald-500 w-3.5 h-3.5" />
-                  <span>Bệnh nhân Nữ (hệ số x 0.85)</span>
-                </label>
                 <div class="p-2.5 rounded-xl notion-subtle flex items-center justify-between">
-                  <span class="text-xs text-sub">CrCl ước tính:</span>
-                  <span id="quickCrclResult" class="font-mono-code font-bold text-main text-xs sm:text-sm">47.8 mL/phút</span>
+                  <span class="text-xs text-sub">Độ thanh thải CrCl:</span>
+                  <span id="crclResultValue" class="font-mono-code text-xs font-bold text-main">46.8 mL/phút</span>
                 </div>
-                <button onclick="switchView('calculators')" class="w-full text-center text-[11px] font-mono-code text-emerald-700 dark:text-emerald-400 hover:underline">
-                  Xem bảng chỉnh liều chi tiết →
+                <div class="space-y-1 text-[11px] pt-1 border-t border-theme">
+                  <div class="flex justify-between">
+                    <span class="text-sub">pH máu ĐM chuẩn</span>
+                    <span class="font-mono-code font-semibold text-main">7.35 – 7.45</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-sub">Kali huyết thanh (K+)</span>
+                    <span class="font-mono-code font-semibold text-main">3.5 – 5.0 mmol/L</span>
+                  </div>
+                </div>
+                <button onclick="switchView('calculators')" class="w-full text-center text-[11px] font-mono-code text-emerald-700 dark:text-emerald-400 hover:underline pt-0.5">
+                  Xem bảng tính 6 công cụ chi tiết →
                 </button>
-              </div>
-
-              <!-- Quick Normal Lab Values Cheat Sheet -->
-              <div class="p-4 rounded-2xl notion-surface space-y-2.5 shadow-sm">
-                <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">🧪 Chỉ Số Labo Cần Nhớ</span>
-                  <button onclick="switchView('library')" class="text-[10px] font-mono-code text-emerald-700 dark:text-emerald-400 hover:underline">Xem tất cả</button>
-                </div>
-                <div class="space-y-1.5 text-xs font-mono-code">
-                  <div class="flex justify-between p-1.5 rounded-lg notion-subtle">
-                    <span class="text-sub">Kali (K+) máu</span>
-                    <span class="font-bold text-main">3.5 - 5.0 mmol/L</span>
-                  </div>
-                  <div class="flex justify-between p-1.5 rounded-lg notion-subtle">
-                    <span class="text-sub">Natri (Na+) máu</span>
-                    <span class="font-bold text-main">135 - 145 mmol/L</span>
-                  </div>
-                  <div class="flex justify-between p-1.5 rounded-lg notion-subtle">
-                    <span class="text-sub">Khí máu pH</span>
-                    <span class="font-bold text-main">7.35 - 7.45</span>
-                  </div>
-                  <div class="flex justify-between p-1.5 rounded-lg notion-subtle">
-                    <span class="text-sub">Creatinine Nam</span>
-                    <span class="font-bold text-main">62 - 106 µmol/L</span>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- COL 2 (6/12 cols): Subject Gallery Bento Grid -->
+            <!-- COL 2 (6 cols): Aesthetic Subject Gallery Cards + Active Recall Flashcard Flip -->
             <div class="lg:col-span-6 space-y-4">
-              <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center justify-between">
                 <div>
-                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">Chương Trình Đào Tạo</span>
                   <h2 class="font-editorial text-2xl text-main">Học Phần Trọng Tâm Học Kỳ</h2>
+                  <p class="text-xs text-sub">Click vào thẻ môn học để mở trang Note chi tiết</p>
                 </div>
-                <!-- Category Filter Buttons -->
-                <div class="flex items-center gap-1 notion-subtle p-1 rounded-xl text-xs">
-                  <button id="subCatBtn_all" onclick="filterSubjectCategory('all')" class="px-3 py-1 rounded-lg notion-surface font-semibold text-main text-xs transition">Tất cả</button>
-                  <button id="subCatBtn_y" onclick="filterSubjectCategory('y')" class="px-3 py-1 rounded-lg text-sub hover:opacity-80 text-xs transition">Y Học</button>
-                  <button id="subCatBtn_duoc" onclick="filterSubjectCategory('duoc')" class="px-3 py-1 rounded-lg text-sub hover:opacity-80 text-xs transition">Dược Học</button>
+                <div class="flex items-center gap-1 text-xs">
+                  <button onclick="filterCategory('all')" id="catBtnAll" class="px-2.5 py-1 rounded-lg notion-surface font-semibold text-main transition">Tất cả</button>
+                  <button onclick="filterCategory('y')" id="catBtnY" class="px-2.5 py-1 rounded-lg text-sub hover:opacity-80 transition">Y khoa</button>
+                  <button onclick="filterCategory('duoc')" id="catBtnDuoc" class="px-2.5 py-1 rounded-lg text-sub hover:opacity-80 transition">Dược học</button>
                 </div>
               </div>
 
               <!-- Search Bar for Subjects -->
               <div class="relative">
-                <input type="text" oninput="renderSubjects('all', this.value)" placeholder="Lọc học phần theo tên môn, giảng viên, từ khóa..." class="w-full text-xs pl-8 pr-4 py-2 rounded-xl notion-surface text-main placeholder:text-mute focus:outline-none ring-1 ring-transparent focus:ring-emerald-600/40" />
+                <input id="globalSearchInput" type="text" oninput="filterSubjectsBySearch(this.value)" placeholder="Lọc học phần theo tên môn, giảng viên, từ khóa..." class="w-full text-xs pl-8 pr-4 py-2 rounded-xl notion-surface text-main placeholder:text-mute focus:outline-none ring-1 ring-transparent focus:ring-emerald-600/40" />
                 <svg class="w-3.5 h-3.5 text-mute absolute left-2.5 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
                 </svg>
               </div>
 
-              <!-- Subject Cards Grid (Generated by JS) -->
+              <!-- 2 Featured Illustrated Cards + 2 Compact Cards Bento Layout -->
               <div id="subjectGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Dynamically rendered -->
+                <!-- Card 1 (Illustrated) -->
+                <div data-cat="y" data-title="Giải phẫu & Sinh lý bệnh Tim mạch" onclick="openSubjectModal('sub-1')" class="group cursor-pointer rounded-2xl notion-surface overflow-hidden transition hover:-translate-y-0.5">
+                  <div class="h-36 overflow-hidden relative bg-[#F5F1E8]">
+                    <img src="assets/images/card_anatomy.jpg" alt="Giải phẫu tim" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                    <span class="absolute top-2.5 left-2.5 text-[10px] font-mono-code px-2 py-0.5 rounded-full bg-black/65 text-white">MED-302 • 4 Tín chỉ</span>
+                  </div>
+                  <div class="p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[11px] font-mono-code px-2 py-0.5 rounded-full badge-emerald font-semibold">● Đang học Lâm sàng</span>
+                      <span class="text-[11px] font-mono-code text-mute">18/22 bài</span>
+                    </div>
+                    <h3 class="font-editorial text-xl text-main leading-snug">Giải phẫu &amp; Bệnh học Nội Tim Mạch</h3>
+                    <p class="text-xs text-sub line-clamp-2">Suy tim phân suất tống máu giảm (HFrEF), hội chứng vành cấp, đọc ECG chuyên sâu.</p>
+                    <div class="pt-1 flex items-center justify-between text-[11px] font-mono-code text-sub">
+                      <span>Cập nhật: Hôm qua</span>
+                      <span class="underline">Mở Note →</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2 (Illustrated) -->
+                <div data-cat="duoc" data-title="Dược lý lâm sàng & Hoạt chất" onclick="openSubjectModal('sub-2')" class="group cursor-pointer rounded-2xl notion-surface overflow-hidden transition hover:-translate-y-0.5">
+                  <div class="h-36 overflow-hidden relative bg-[#F5F1E8]">
+                    <img src="assets/images/card_pharma.jpg" alt="Dược lý lâm sàng" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                    <span class="absolute top-2.5 left-2.5 text-[10px] font-mono-code px-2 py-0.5 rounded-full bg-black/65 text-white">PHA-405 • 3 Tín chỉ</span>
+                  </div>
+                  <div class="p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[11px] font-mono-code px-2 py-0.5 rounded-full badge-amber font-semibold">● Ôn thi giữa kỳ</span>
+                      <span class="text-[11px] font-mono-code text-mute">42 hoạt chất</span>
+                    </div>
+                    <h3 class="font-editorial text-xl text-main leading-snug">Dược Lý Lâm Sàng &amp; Hoạt Chất</h3>
+                    <p class="text-xs text-sub line-clamp-2">Cơ chế tác dụng (MOA), dược động học ADME, chỉnh liều kháng sinh theo độ thanh thải thận.</p>
+                    <div class="pt-1 flex items-center justify-between text-[11px] font-mono-code text-sub">
+                      <span>Cập nhật: 2 giờ trước</span>
+                      <span class="underline">Xem Dược điển →</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3 (Compact) -->
+                <div data-cat="y" data-title="Vi sinh - Ký sinh trùng & Nhiễm khuẩn" onclick="openSubjectModal('sub-3')" class="cursor-pointer p-4 rounded-2xl notion-surface space-y-2 hover:opacity-90 transition">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono-code px-2 py-0.5 rounded-md notion-subtle text-main">🔬 MIC-210</span>
+                    <span class="text-[11px] font-mono-code px-2 py-0.5 rounded-full badge-emerald font-semibold">Hoàn thành 90%</span>
+                  </div>
+                  <h3 class="font-editorial text-xl text-main">Vi Sinh Lâm Sàng &amp; Kháng Sinh Đồ</h3>
+                  <p class="text-xs text-sub">Phân loại vi khuẩn Gram âm/dương, cơ chế đề kháng MRSA &amp; ESBL.</p>
+                </div>
+
+                <!-- Card 4 (Compact) -->
+                <div data-cat="duoc" data-title="Hóa dược & Kiểm nghiệm Dược phẩm" onclick="openSubjectModal('sub-4')" class="cursor-pointer p-4 rounded-2xl notion-surface space-y-2 hover:opacity-90 transition">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono-code px-2 py-0.5 rounded-md notion-subtle text-main">🧪 CHE-318</span>
+                    <span class="text-[11px] font-mono-code px-2 py-0.5 rounded-full badge-rose font-semibold">Lab Thứ Sáu</span>
+                  </div>
+                  <h3 class="font-editorial text-xl text-main">Hóa Dược &amp; Bào Chế Sinh Dược</h3>
+                  <p class="text-xs text-sub">Liên quan cấu trúc - tác dụng (SAR), sắc ký lỏng hiệu năng cao HPLC.</p>
+                </div>
               </div>
             </div>
 
-            <!-- COL 3 (3/12 cols): Clinical Duty + Checklist + Active Recall Widget -->
+            <!-- COL 3 (3 cols): Clinical Shift Schedule & Checklist -->
             <div class="lg:col-span-3 space-y-4">
-              <!-- Clinical Duty Card -->
-              <div class="p-4 rounded-2xl notion-surface space-y-3 border-l-4 shadow-sm" style="border-left-color: var(--accent-primary);">
+              <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm">
                 <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">🏥 Lịch Trực & Giao Ban</span>
-                  <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded badge-emerald font-semibold">Tuần 12</span>
+                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">🏥 Lịch Trực &amp; Đi Buồng</span>
+                  <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-full notion-subtle text-main">Tuần 11</span>
                 </div>
-                <div class="p-2.5 rounded-xl notion-subtle space-y-1">
-                  <div class="text-xs font-bold text-main">Đi buồng Nội Tim Mạch</div>
-                  <div class="text-[11px] text-sub font-mono-code">Thứ Năm • 07:00 – 11:30</div>
-                  <div class="text-[11px] text-mute">BS. Hướng dẫn: PGS.TS. Lê Minh Quân</div>
+
+                <div class="space-y-2.5 text-xs">
+                  <div class="p-2.5 rounded-xl notion-subtle border-l-4" style="border-left-color: var(--accent-primary);">
+                    <div class="flex justify-between font-mono-code text-[10px] text-sub">
+                      <span>THỨ NĂM • 07:00 - 11:30</span>
+                      <span>Phòng 402</span>
+                    </div>
+                    <div class="font-semibold text-main mt-0.5">Đi buồng Khoa Nội Tim Mạch</div>
+                    <div class="text-[11px] text-sub">Trình bệnh án ca Suy tim độ III</div>
+                  </div>
+
+                  <div class="p-2.5 rounded-xl notion-subtle border-l-4" style="border-left-color: var(--accent-secondary);">
+                    <div class="flex justify-between font-mono-code text-[10px] text-sub">
+                      <span>THỨ SÁU • 13:30 - 16:30</span>
+                      <span>Lab B2</span>
+                    </div>
+                    <div class="font-semibold text-main mt-0.5">Thực hành Dược Lâm Sàng</div>
+                    <div class="text-[11px] text-sub">Phân tích đơn thuốc ngoại trú</div>
+                  </div>
                 </div>
-                <div class="p-2.5 rounded-xl notion-subtle space-y-1">
-                  <div class="text-xs font-bold text-main">Trực Cấp Cứu Hồi Sức (ICU)</div>
-                  <div class="text-[11px] text-sub font-mono-code">Thứ Bảy • 17:00 – 07:00 (Hôm sau)</div>
-                  <div class="text-[11px] text-mute">Trưởng tua trực: ThS.BS. Trần Tuấn</div>
+
+                <!-- Interactive Checklist -->
+                <div class="pt-3 border-t border-theme space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">Checklist Hôm Nay</span>
+                    <span id="taskCounterBadge" class="text-[10px] font-mono-code text-sub">2/4 xong</span>
+                  </div>
+                  <div id="clinicalChecklist" class="space-y-1.5 text-xs">
+                    <label class="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" checked onchange="updateTaskCount()" class="mt-0.5 rounded accent-emerald-700" />
+                      <span class="line-through text-mute leading-snug">Soạn phác đồ điều trị Tăng HA (ESC)</span>
+                    </label>
+                    <label class="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" checked onchange="updateTaskCount()" class="mt-0.5 rounded accent-emerald-700" />
+                      <span class="line-through text-mute leading-snug">Ôn 30 thẻ Anki nhóm Cephalosporin</span>
+                    </label>
+                    <label class="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" onchange="updateTaskCount()" class="mt-0.5 rounded accent-emerald-700" />
+                      <span class="text-main leading-snug">Hoàn thiện bệnh án SOAP giường 14</span>
+                    </label>
+                    <label class="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" onchange="updateTaskCount()" class="mt-0.5 rounded accent-emerald-700" />
+                      <span class="text-main leading-snug">Vẽ sơ đồ cơ chế đông máu nội sinh</span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
-              <!-- Clinical Checklist Card -->
-              <div class="p-4 rounded-2xl notion-surface space-y-3 shadow-sm">
+              <!-- Interactive Active Recall Mini Flashcard Widget -->
+              <div class="p-4 rounded-2xl notion-surface space-y-2.5 shadow-sm">
                 <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">📋 Chuẩn Bị Đi Buồng</span>
-                  <span id="taskCounterBadge" class="text-[10px] font-mono-code px-2 py-0.5 rounded-full badge-emerald font-semibold">5/8 xong</span>
+                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">⚡ Thẻ Nhớ Nhanh (Cloze)</span>
+                  <span id="flashcardIndexLabel" class="text-[10px] font-mono-code text-sub">1 / 3</span>
                 </div>
-                <div id="clinicalChecklist" class="space-y-1.5 text-xs max-h-56 overflow-y-auto pr-1">
-                  <!-- Dynamically rendered checkboxes -->
+                <div id="quickFlashcardPrompt" class="text-xs font-semibold text-main leading-relaxed">
+                  Thuốc giải độc đặc hiệu (Antidote) khi quá liều Paracetamol là gì và dùng tối ưu trong bao nhiêu giờ đầu?
                 </div>
-                <!-- Add task input -->
-                <div class="flex items-center gap-1.5 pt-1">
-                  <input id="newChecklistInput" type="text" placeholder="Thêm vật dụng / nhiệm vụ..." onkeydown="if(event.key==='Enter') addChecklistItem()" class="flex-1 text-xs px-2.5 py-1.5 rounded-xl notion-subtle text-main placeholder:text-mute focus:outline-none" />
-                  <button onclick="addChecklistItem()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold btn-primary-theme transition">+</button>
+                <div id="quickFlashcardAnswer" class="hidden p-2.5 rounded-xl notion-subtle text-xs text-main font-mono-code">
+                  ✓ Đáp án: <strong>N-acetylcysteine (NAC)</strong> — hiệu quả bảo vệ gan tối đa khi dùng trong vòng <strong>8 giờ đầu</strong> sau uống quá liều.
                 </div>
-              </div>
-
-              <!-- Active Recall Quick Flashcard Flip Box -->
-              <div class="p-4 rounded-2xl notion-surface space-y-3 shadow-sm border-t-4" style="border-top-color: var(--accent-secondary);">
-                <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">⚡ Thẻ Ôn Tập Nhanh</span>
-                  <span id="quickFlashcardIndex" class="text-[10px] font-mono-code px-1.5 py-0.5 rounded notion-subtle text-sub font-semibold">1 / 6</span>
-                </div>
-                <div id="quickFlashcardPrompt" class="text-xs font-semibold text-main leading-relaxed min-h-[48px]">
-                  Tam chứng Beck trong chèn ép tim cấp gồm những dấu hiệu lâm sàng nào?
-                </div>
-                <div id="quickFlashcardAnswer" class="hidden p-2.5 rounded-xl notion-subtle text-xs text-main leading-relaxed font-mono-code">
-                  1. Huyết áp tụt<br>2. Tĩnh mạch cổ nổi to<br>3. Tiếng tim mờ xa xăm.
-                </div>
-                <div class="flex items-center gap-2 pt-1">
-                  <button id="quickRevealBtn" onclick="toggleQuickDashboardAnswer()" class="flex-1 py-1.5 rounded-xl text-xs font-medium notion-subtle text-main hover:opacity-80 transition">
+                <div class="flex items-center justify-between pt-1">
+                  <button onclick="toggleQuickFlashcardAnswer()" id="btnRevealAnswer" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold notion-subtle text-main hover:opacity-80 transition">
                     👁 Hiện đáp án
                   </button>
-                  <button onclick="nextQuickDashboardCard()" class="px-3 py-1.5 rounded-xl text-xs font-mono-code btn-primary-theme transition">
-                    Tiếp →
+                  <button onclick="nextQuickFlashcard()" class="px-2.5 py-1 rounded-lg text-[11px] font-mono-code text-sub hover:text-main transition">
+                    Câu tiếp →
                   </button>
                 </div>
               </div>
-
             </div>
 
           </div>
 
-          <!-- LOWER SECTION 1: SPACED REPETITION DATABASE TABLE -->
-          <section id="spacedRepSection" class="mt-10 p-5 sm:p-6 rounded-2xl notion-surface space-y-4 shadow-sm">
-            <div class="flex flex-wrap items-center justify-between gap-3">
+          <!-- ========================================================= -->
+          <!-- DATABASE 1: ACTIVE RECALL & SPACED REPETITION TABLE       -->
+          <!-- ========================================================= -->
+          <section id="spacedRepSection" class="p-6 rounded-2xl notion-surface space-y-4 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">Thuật Toán Spaced Repetition (Anki)</span>
-                <h2 class="font-editorial text-2xl sm:text-3xl text-main">Bảng Theo Dõi Ôn Tập Ngắt Quãng</h2>
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🧠</span>
+                  <h2 class="font-editorial text-2xl sm:text-3xl text-main">Bảng Theo Dõi Ôn Tập Ngắt Quãng (Spaced Repetition)</h2>
+                </div>
+                <p class="text-xs text-sub">Tích hợp phương pháp Active Recall • Bấm nút <strong>"Đã ôn hôm nay"</strong> để tự động tính chu kỳ ôn kế tiếp (R1 → R4)</p>
               </div>
               <div class="flex items-center gap-2">
-                <select id="spacedRepFilter" onchange="renderSpacedRepTable()" class="text-xs px-3 py-1.5 rounded-xl notion-subtle text-main font-mono-code focus:outline-none">
-                  <option value="all">Tất cả trạng thái</option>
-                  <option value="Cần ôn ngay">🚨 Cần ôn ngay</option>
+                <select id="srFilterSelect" onchange="renderSpacedRepTable()" class="text-xs px-3 py-1.5 rounded-xl notion-subtle text-main focus:outline-none">
+                  <option value="all">Tất cả chuyên đề</option>
+                  <option value="Cần ôn ngay">🔴 Cần ôn ngay</option>
                   <option value="Đang ngấm">🟡 Đang ngấm</option>
                   <option value="Đã thuộc lòng">🟢 Đã thuộc lòng</option>
                 </select>
                 <button onclick="switchView('flashcards')" class="px-3 py-1.5 rounded-xl text-xs font-semibold btn-primary-theme transition">
-                  Mở chế độ 3D Flashcard →
+                  Mở 3D Deck →
                 </button>
               </div>
             </div>
@@ -554,97 +598,176 @@
             <div class="overflow-x-auto">
               <table class="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr class="border-b border-theme text-[10px] font-mono-code uppercase text-mute">
-                    <th class="py-2.5 px-3">Chuyên Đề Trọng Tâm</th>
-                    <th class="py-2.5 px-3">Học Phần</th>
-                    <th class="py-2.5 px-3">Trạng Thái</th>
-                    <th class="py-2.5 px-3">Chu Kỳ</th>
-                    <th class="py-2.5 px-3">Lịch Ôn Kế</th>
-                    <th class="py-2.5 px-3 text-right">Thao Tác</th>
+                  <tr class="border-b border-theme text-[11px] font-mono-code uppercase text-mute">
+                    <th class="py-2.5 px-3">Chuyên đề / Bài ghi chú</th>
+                    <th class="py-2.5 px-3">Phân môn</th>
+                    <th class="py-2.5 px-3">Mức độ nhớ</th>
+                    <th class="py-2.5 px-3">Chu kỳ (R)</th>
+                    <th class="py-2.5 px-3">Ngày ôn tới</th>
+                    <th class="py-2.5 px-3 text-right">Thao tác</th>
                   </tr>
                 </thead>
-                <tbody id="spacedRepTableBody">
-                  <!-- Dynamically rendered -->
+                <tbody id="spacedRepTableBody" class="divide-y border-theme">
+                  <!-- Populated by JS -->
                 </tbody>
               </table>
             </div>
           </section>
 
-          <!-- LOWER SECTION 2: DƯỢC ĐIỂN BỎ TÚI (DRUG FORMULARY CARDS) -->
-          <section id="pharmacologySection" class="mt-10 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-3">
+          <!-- ========================================================= -->
+          <!-- DATABASE 2: PHARMACOLOGY & DRUG FORMULARY CARDS           -->
+          <!-- ========================================================= -->
+          <section id="pharmacologySection" class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span class="text-[11px] font-mono-code uppercase tracking-wider text-mute">Tra Cứu Hoạt Chất Bệnh Viện</span>
-                <h2 class="font-editorial text-2xl sm:text-3xl text-main">Dược Điển Bỏ Túi (Drug Formulary)</h2>
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">💊</span>
+                  <h2 class="font-editorial text-2xl sm:text-3xl text-main">Dược Điển Bỏ Túi (Drug Formulary Cards)</h2>
+                </div>
+                <p class="text-xs text-sub">Layout dạng Gallery Card của Notion — tối ưu cho sinh viên Dược &amp; Y khoa tra cứu nhanh cơ chế và liều dùng</p>
               </div>
               <div class="flex items-center gap-2">
-                <input id="drugSearchInput" oninput="renderDrugCardsGrid('all', this.value)" type="text" placeholder="Tìm theo tên thuốc, cơ chế..." class="text-xs px-3 py-1.5 rounded-xl notion-surface text-main placeholder:text-mute focus:outline-none ring-1 ring-transparent focus:ring-emerald-600/40" />
-                <button onclick="openNewDrugModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold btn-primary-theme transition">
-                  + Thêm Hoạt Chất
-                </button>
+                <input id="drugSearchInput" oninput="renderDrugCards()" type="text" placeholder="Lọc theo tên thuốc hoặc nhóm..." class="text-xs px-3 py-1.5 rounded-xl notion-surface text-main placeholder:text-mute focus:outline-none" />
+                <button onclick="openNewDrugModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold btn-primary-theme transition">+ Thêm thẻ thuốc</button>
               </div>
             </div>
 
-            <!-- Drug Formulary Cards Grid -->
             <div id="drugCardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <!-- Dynamically rendered -->
+              <!-- Populated by JS -->
             </div>
           </section>
 
         </div>
-      </section>
+      </div>
 
-      <!-- =================================================================
-           VIEW 2: SỔ TAY BỆNH ÁN & GHI CHÚ LÂM SÀNG (SOAP NOTES)
-           ================================================================= -->
-      <section id="view_soap" class="hidden p-4 sm:p-8 max-w-6xl mx-auto space-y-6 pb-20">
-        <!-- Top Toolbar -->
+      <!-- ========================================================= -->
+      <!-- VIEW 2: CORNELL LECTURE NOTE + SOAP CLINICAL CASE PAGE    -->
+      <!-- ========================================================= -->
+      <div id="view_soap" class="hidden p-4 sm:p-8 max-w-5xl mx-auto space-y-6 pb-20">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-theme">
           <div>
-            <div class="text-xs font-mono-code text-sub">NOTION INNER PAGE TEMPLATE • CORNELL & SOAP STRUCTURE</div>
-            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">🩺 Sổ Tay Ghi Chú Bài Giảng & Bệnh Án Lâm Sàng (SOAP)</h2>
+            <div class="text-xs font-mono-code text-sub">NOTION INNER PAGE TEMPLATE • CORNELL &amp; SOAP STRUCTURE</div>
+            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">🩺 Mẫu Trang Ghi Chú Bài Giảng &amp; Bệnh Án Lâm Sàng (SOAP)</h2>
           </div>
           <div class="flex items-center gap-2">
-            <button onclick="openNewSoapModal()" class="px-4 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition shadow-sm">
+            <button onclick="openNewSoapModal()" class="px-3.5 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition shadow-sm">
               + Tạo Bệnh Án Mới
             </button>
             <button onclick="switchView('dashboard')" class="px-3.5 py-2 rounded-xl text-xs font-semibold notion-surface text-main hover:opacity-80 transition">
-              ← Quay Lại Dashboard
+              ← Quay lại Dashboard chính
             </button>
           </div>
         </div>
 
-        <!-- 2-Column Layout: Cases List & Selected Case Details -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- Cases Sidebar List -->
-          <div class="lg:col-span-4 space-y-3">
-            <div class="flex items-center justify-between text-xs font-mono-code text-mute px-1">
-              <span id="soapCasesHeading">Danh Sách Ca Bệnh</span>
-              <button onclick="openNewSoapModal()" class="text-emerald-700 dark:text-emerald-400 hover:underline">+ Mới</button>
-            </div>
-            <div id="soapCasesList" class="space-y-2 max-h-[600px] overflow-y-auto pr-1">
-              <!-- Dynamically rendered list -->
-            </div>
+        <!-- Case Selector Dropdown & Actions -->
+        <div class="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl notion-surface">
+          <div class="flex items-center gap-2 text-xs">
+            <span class="font-mono-code text-mute">Chọn Ca Bệnh:</span>
+            <select id="soapCaseSelector" onchange="selectSoapCase(this.value)" class="px-3 py-1.5 rounded-xl notion-subtle text-main font-semibold text-xs focus:outline-none">
+              <!-- Populated by JS -->
+            </select>
           </div>
-
-          <!-- Active Case Detail View -->
-          <div class="lg:col-span-8">
-            <div id="soapActiveDetailContainer" class="space-y-6">
-              <!-- Dynamically rendered active SOAP case -->
-            </div>
+          <div class="flex items-center gap-2">
+            <button onclick="printCurrentSoap()" class="px-3 py-1.5 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition">
+              🖨 In / PDF
+            </button>
+            <button onclick="copySoapMarkdown()" class="px-3 py-1.5 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition">
+              📋 Copy Markdown
+            </button>
           </div>
         </div>
-      </section>
 
-      <!-- =================================================================
-           VIEW 3: DƯỢC ĐIỂN TOÀN DIỆN & TRA CỨU HOẠT CHẤT (DRUG FORMULARY)
-           ================================================================= -->
-      <section id="view_drugs" class="hidden p-4 sm:p-8 max-w-6xl mx-auto space-y-6 pb-20">
-        <!-- Header -->
+        <!-- Metadata Properties Block (Notion Page Properties) -->
+        <div id="soapMetaBlock" class="p-4 rounded-2xl notion-surface grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div>
+            <div class="text-[10px] font-mono-code uppercase text-mute">Mã bệnh án / Bài học</div>
+            <div id="soapMetaCode" class="font-semibold text-main mt-0.5">BA-2026-089 • Nội Tim Mạch</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-mono-code uppercase text-mute">Chẩn đoán sơ bộ</div>
+            <div id="soapMetaDiag" class="font-semibold text-main mt-0.5 truncate">Suy tim cấp mất bù / THA độ 2</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-mono-code uppercase text-mute">Giảng viên hướng dẫn</div>
+            <div id="soapMetaLecturer" class="font-semibold text-main mt-0.5">PGS.TS. Lê Minh Quân</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-mono-code uppercase text-mute">Trạng thái duyệt</div>
+            <div id="soapMetaStatus" class="font-mono-code text-[11px] inline-block px-2 py-0.5 rounded-full badge-amber font-semibold mt-0.5">● Sẵn sàng trình bệnh</div>
+          </div>
+        </div>
+
+        <!-- SOAP 4-QUADRANT GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- S: Subjective -->
+          <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4" style="border-top-color: var(--accent-primary);">
+            <div class="flex items-center justify-between">
+              <span class="font-editorial text-2xl text-main">S — Subjective (Triệu chứng cơ năng)</span>
+              <span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">Bệnh sử</span>
+            </div>
+            <ul id="soapDetailS" class="text-xs text-sub space-y-1.5 list-disc pl-4 leading-relaxed">
+              <li>Bệnh nhân nam, 64 tuổi, nhập viện vì <strong class="text-main">khó thở kịch phát về đêm</strong> và phù hai chi dưới tăng dần 5 ngày nay.</li>
+              <li>Khó thở khi nằm đầu thấp (phải kê 3 gối), giảm khi ngồi dậy.</li>
+              <li>Tiền sử: Tăng huyết áp 10 năm, bỏ thuốc Amlodipine + Perindopril 2 tuần nay.</li>
+            </ul>
+          </div>
+
+          <!-- O: Objective -->
+          <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4" style="border-top-color: var(--accent-secondary);">
+            <div class="flex items-center justify-between">
+              <span class="font-editorial text-2xl text-main">O — Objective (Thực thể &amp; Cận lâm sàng)</span>
+              <span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">Khám &amp; Lab</span>
+            </div>
+            <div id="soapDetailO" class="space-y-2 text-xs leading-relaxed">
+              <div id="soapDetailOVitals" class="p-2.5 rounded-xl notion-subtle font-mono-code text-[11px] text-main">
+                Sinh hiệu: Mạch <strong>108 l/p</strong>, HA <strong>165/95 mmHg</strong>, SpO2 91% (khí phòng)
+              </div>
+              <p id="soapDetailOExam">Khám: Tĩnh mạch cổ nổi (+) ở tư thế 45°, ran ẩm hai đáy phổi, mỏm tim lệch trái.</p>
+              <p id="soapDetailOLab">Xét nghiệm: NT-proBNP: 4,850 pg/mL, Siêu âm tim: EF = 34%.</p>
+            </div>
+          </div>
+
+          <!-- A: Assessment -->
+          <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4" style="border-top-color: var(--accent-gold);">
+            <div class="flex items-center justify-between">
+              <span class="font-editorial text-2xl text-main">A — Assessment (Biện luận &amp; Chẩn đoán)</span>
+              <span id="soapDetailAIcd" class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">ICD-10: I50.9</span>
+            </div>
+            <p id="soapDetailA" class="text-xs text-sub leading-relaxed">
+              Hội chứng suy tim trái + phải cấp mất bù (tiêu chuẩn Framingham: 3 chính + 2 phụ), yếu tố thúc đẩy do ngưng thuốc điều trị và cơn tăng huyết áp.
+            </p>
+          </div>
+
+          <!-- P: Plan -->
+          <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4 border-emerald-600">
+            <div class="flex items-center justify-between">
+              <span class="font-editorial text-2xl text-main">P — Plan (Y lệnh &amp; Dược lâm sàng)</span>
+              <span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">Tứ trụ Suy tim</span>
+            </div>
+            <ul id="soapDetailP" class="text-xs text-sub space-y-1.5 list-disc pl-4 leading-relaxed">
+              <li><strong class="text-main">Cấp cứu:</strong> Tư thế Fowler, thở oxy qua cannula, Furosemide 40mg IV chậm.</li>
+              <li><strong class="text-main">Duy trì (GDMT):</strong> ARNI (Sacubitril/Valsartan) + Chẹn Beta (Bisoprolol khi hết sung huyết) + MRA (Spironolactone) + SGLT2i (Dapagliflozin 10mg).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Cornell Note Summary at Bottom -->
+        <div class="p-5 rounded-2xl notion-callout space-y-2">
+          <div class="text-xs font-mono-code uppercase text-mute">📌 Tóm tắt Cornell (Key Takeaway khi đi thi OSCE)</div>
+          <p id="soapDetailCornell" class="text-xs sm:text-sm text-main leading-relaxed">
+            Tuyệt đối <strong>không khởi trị hoặc tăng liều Chẹn Beta</strong> khi bệnh nhân đang còn tình trạng quá tải dịch cấp tính (ran ẩm phổi, phù nhiều). Ưu tiên lợi tiểu quai đường tĩnh mạch (Furosemide) và theo dõi sát <span class="font-mono-code">Ion đồ (K+, Na+) + Creatinine</span> mỗi 24h.
+          </p>
+        </div>
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- VIEW 3: FULL DRUG FORMULARY HUB                           -->
+      <!-- ========================================================= -->
+      <div id="view_drugs" class="hidden p-4 sm:p-8 max-w-6xl mx-auto space-y-6 pb-20">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-theme">
           <div>
-            <div class="text-xs font-mono-code text-sub">PHARMACOLOGY & CLINICAL FORMULARY DATABASE</div>
-            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">💊 Dược Điển Bỏ Túi & Tra Cứu Hoạt Chất Y Khoa</h2>
+            <div class="text-xs font-mono-code text-sub">PHARMACOLOGY &amp; CLINICAL FORMULARY DATABASE</div>
+            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">💊 Dược Điển Bỏ Túi &amp; Tra Cứu Hoạt Chất Y Khoa</h2>
           </div>
           <button onclick="openNewDrugModal()" class="px-4 py-2 rounded-xl text-xs font-semibold btn-primary-theme transition shadow-sm">
             + Thêm Hoạt Chất Mới
@@ -670,23 +793,21 @@
           </div>
         </div>
 
-        <!-- Drug Cards Container is rendered via JS -->
         <div id="allDrugsCardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Dynamically rendered -->
+          <!-- Populated by JS -->
         </div>
-      </section>
+      </div>
 
-      <!-- =================================================================
-           VIEW 4: BỘ MÁY TÍNH Y KHOA LÂM SÀNG (6 CLINICAL CALCULATORS)
-           ================================================================= -->
-      <section id="view_calculators" class="hidden p-4 sm:p-8 max-w-6xl mx-auto space-y-8 pb-20">
-        <!-- Header -->
+      <!-- ========================================================= -->
+      <!-- VIEW 4: BỘ MÁY TÍNH Y KHOA LÂM SÀNG (6 CALCULATORS)       -->
+      <!-- ========================================================= -->
+      <div id="view_calculators" class="hidden p-4 sm:p-8 max-w-6xl mx-auto space-y-8 pb-20">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-theme">
           <div>
             <div class="text-xs font-mono-code text-sub">EVIDENCE-BASED CLINICAL CALCULATORS</div>
-            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">🧮 Bộ Công Cụ Tính Toán Y Khoa & Chỉnh Liều Lâm Sàng</h2>
+            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">🧮 Bộ Công Cụ Tính Toán Y Khoa &amp; Chỉnh Liều Lâm Sàng</h2>
           </div>
-          <span class="text-xs font-mono-code px-2.5 py-1 rounded-full badge-emerald font-semibold">Chuẩn BYT & Quốc Tế</span>
+          <span class="text-xs font-mono-code px-2.5 py-1 rounded-full badge-emerald font-semibold">Chuẩn BYT &amp; Quốc Tế</span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -695,7 +816,7 @@
           <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm border-t-4" style="border-top-color: var(--accent-primary);">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-[10px] font-mono-code uppercase text-mute">Thận & Chỉnh Liều Thuốc</span>
+                <span class="text-[10px] font-mono-code uppercase text-mute">Thận &amp; Chỉnh Liều Thuốc</span>
                 <h3 class="font-editorial text-2xl text-main">1. Độ Thanh Thải Creatinine (CrCl)</h3>
               </div>
               <span class="text-xs font-mono-code badge-emerald px-2 py-0.5 rounded">Cockcroft-Gault</span>
@@ -747,10 +868,10 @@
           <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm border-t-4" style="border-top-color: var(--accent-secondary);">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-[10px] font-mono-code uppercase text-mute">Thể Trạng & Liều Bề Mặt Da</span>
-                <h3 class="font-editorial text-2xl text-main">2. Chỉ Số BMI & Diện Tích Da (BSA)</h3>
+                <span class="text-[10px] font-mono-code uppercase text-mute">Thể Trạng &amp; Liều Bề Mặt Da</span>
+                <h3 class="font-editorial text-2xl text-main">2. Chỉ Số BMI &amp; Diện Tích Da (BSA)</h3>
               </div>
-              <span class="text-xs font-mono-code badge-blue px-2 py-0.5 rounded">Mosteller & IDI</span>
+              <span class="text-xs font-mono-code badge-blue px-2 py-0.5 rounded">Mosteller &amp; IDI</span>
             </div>
             <p class="text-xs text-sub leading-relaxed">
               Tính phân loại béo phì theo chuẩn Châu Á (WPRO) và diện tích bề mặt cơ thể (m²) dùng tính liều hóa trị và truyền dịch.
@@ -778,7 +899,7 @@
               </div>
             </div>
             <div class="p-3 rounded-xl notion-callout text-[11px] text-sub leading-relaxed">
-              💡 <strong>Chuẩn Châu Á:</strong> Bình thường 18.5 - 22.9 | Thừa cân 23 - 24.9 | Béo phì độ 1: 25 - 29.9 | Béo phì độ 2: >= 30 kg/m².
+              💡 <strong>Chuẩn Châu Á:</strong> Bình thường 18.5 - 22.9 | Thừa cân 23 - 24.9 | Béo phì độ 1: 25 - 29.9 | Béo phì độ 2: &gt;= 30 kg/m².
             </div>
           </div>
 
@@ -786,7 +907,7 @@
           <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm border-t-4" style="border-top-color: var(--accent-gold);">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-[10px] font-mono-code uppercase text-mute">Thần Kinh & Cấp Cứu</span>
+                <span class="text-[10px] font-mono-code uppercase text-mute">Thần Kinh &amp; Cấp Cứu</span>
                 <h3 class="font-editorial text-2xl text-main">3. Thang Điểm Hôn Mê Glasgow (GCS)</h3>
               </div>
               <span id="gcsTotalScore" class="font-editorial text-2xl font-bold px-3 py-1 rounded-full badge-emerald">15 / 15</span>
@@ -886,7 +1007,7 @@
           <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm border-t-4 border-teal-600">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-[10px] font-mono-code uppercase text-mute">Hô Hấp & Phân Tầng Nguy Cơ</span>
+                <span class="text-[10px] font-mono-code uppercase text-mute">Hô Hấp &amp; Phân Tầng Nguy Cơ</span>
                 <h3 class="font-editorial text-2xl text-main">4. Thang Điểm CURB-65 (Viêm Phổi)</h3>
               </div>
               <span id="curb65ResultScore" class="font-editorial text-2xl font-bold px-3 py-1 rounded-full badge-amber">2 / 5 điểm</span>
@@ -901,19 +1022,19 @@
               </label>
               <label class="p-2.5 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="curbUrea" type="checkbox" checked onchange="MedicalCalculators.calculateCurb65()" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
-                <span><strong>U — Urea:</strong> Ure máu > 7 mmol/L (BUN > 19 mg/dL) (+1)</span>
+                <span><strong>U — Urea:</strong> Ure máu &gt; 7 mmol/L (BUN &gt; 19 mg/dL) (+1)</span>
               </label>
               <label class="p-2.5 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="curbRr" type="checkbox" checked onchange="MedicalCalculators.calculateCurb65()" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
-                <span><strong>R — Respiratory Rate:</strong> Nhịp thở >= 30 lần/phút (+1)</span>
+                <span><strong>R — Respiratory Rate:</strong> Nhịp thở &gt;= 30 lần/phút (+1)</span>
               </label>
               <label class="p-2.5 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="curbBp" type="checkbox" onchange="MedicalCalculators.calculateCurb65()" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
-                <span><strong>B — Blood Pressure:</strong> HA tâm thu < 90 hoặc HA tâm trương <= 60 mmHg (+1)</span>
+                <span><strong>B — Blood Pressure:</strong> HA tâm thu &lt; 90 hoặc HA tâm trương &lt;= 60 mmHg (+1)</span>
               </label>
               <label class="p-2.5 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="curbAge" type="checkbox" onchange="MedicalCalculators.calculateCurb65()" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
-                <span><strong>65 — Age:</strong> Tuổi >= 65 (+1)</span>
+                <span><strong>65 — Age:</strong> Tuổi &gt;= 65 (+1)</span>
               </label>
             </div>
             <div class="p-3.5 rounded-xl notion-subtle space-y-1">
@@ -928,7 +1049,7 @@
           <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm border-t-4 border-indigo-600">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-[10px] font-mono-code uppercase text-mute">Tim Mạch & Kháng Đông</span>
+                <span class="text-[10px] font-mono-code uppercase text-mute">Tim Mạch &amp; Kháng Đông</span>
                 <h3 class="font-editorial text-2xl text-main">5. Thang Điểm CHA2DS2-VASc (Rung Nhĩ)</h3>
               </div>
               <span id="chaScoreDisplay" class="font-editorial text-2xl font-bold px-3 py-1 rounded-full badge-rose">3 điểm</span>
@@ -939,7 +1060,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <label class="p-2 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="chaChf" type="checkbox" checked onchange="MedicalCalculators.calculateCha2ds2Vasc()" class="rounded text-emerald-600 focus:ring-emerald-500" />
-                <span>C: Suy tim sung huyết / EF <= 40% (+1)</span>
+                <span>C: Suy tim sung huyết / EF &lt;= 40% (+1)</span>
               </label>
               <label class="p-2 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="chaHtn" type="checkbox" checked onchange="MedicalCalculators.calculateCha2ds2Vasc()" class="rounded text-emerald-600 focus:ring-emerald-500" />
@@ -947,7 +1068,7 @@
               </label>
               <label class="p-2 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="chaAge75" type="checkbox" onchange="MedicalCalculators.calculateCha2ds2Vasc()" class="rounded text-emerald-600 focus:ring-emerald-500" />
-                <span>A2: Tuổi >= 75 (+2)</span>
+                <span>A2: Tuổi &gt;= 75 (+2)</span>
               </label>
               <label class="p-2 rounded-xl notion-subtle flex items-center gap-2 cursor-pointer">
                 <input id="chaDm" type="checkbox" checked onchange="MedicalCalculators.calculateCha2ds2Vasc()" class="rounded text-emerald-600 focus:ring-emerald-500" />
@@ -981,8 +1102,8 @@
           <div class="p-5 rounded-2xl notion-surface space-y-4 shadow-sm border-t-4 border-amber-600">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-[10px] font-mono-code uppercase text-mute">Hồi Sức & Ngoại Khoa Bỏng</span>
-                <h3 class="font-editorial text-2xl text-main">6. Bù Dịch Bỏng (Parkland) & Giọt/Phút</h3>
+                <span class="text-[10px] font-mono-code uppercase text-mute">Hồi Sức &amp; Ngoại Khoa Bỏng</span>
+                <h3 class="font-editorial text-2xl text-main">6. Bù Dịch Bỏng (Parkland) &amp; Giọt/Phút</h3>
               </div>
               <span class="text-xs font-mono-code badge-amber px-2 py-0.5 rounded">Quy Tắc 4mL</span>
             </div>
@@ -1042,16 +1163,15 @@
           </div>
 
         </div>
-      </section>
+      </div>
 
-      <!-- =================================================================
-           VIEW 5: ACTIVE RECALL FLASHCARDS (3D FLIP STUDY DECK)
-           ================================================================= -->
-      <section id="view_flashcards" class="hidden p-4 sm:p-8 max-w-4xl mx-auto space-y-6 pb-20">
-        <!-- Header -->
+      <!-- ========================================================= -->
+      <!-- VIEW 5: ACTIVE RECALL FLASHCARDS (3D FLIP STUDY DECK)     -->
+      <!-- ========================================================= -->
+      <div id="view_flashcards" class="hidden p-4 sm:p-8 max-w-4xl mx-auto space-y-6 pb-20">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-theme">
           <div>
-            <div class="text-xs font-mono-code text-sub">ACTIVE RECALL & SPACED REPETITION ENGINE</div>
+            <div class="text-xs font-mono-code text-sub">ACTIVE RECALL &amp; SPACED REPETITION ENGINE</div>
             <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">🧠 Thẻ Ghi Nhớ Y Khoa (Flashcard 3D Deck)</h2>
           </div>
           <div class="flex items-center gap-2">
@@ -1073,7 +1193,7 @@
                 Tam chứng Beck trong chèn ép tim cấp gồm những dấu hiệu lâm sàng nào?
               </div>
               <div class="text-center text-xs text-sub font-mono-code">
-                [ Click vào thẻ để xem đáp án & giải thích ]
+                [ Click vào thẻ để xem đáp án &amp; giải thích ]
               </div>
             </div>
 
@@ -1128,17 +1248,16 @@
             </button>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- =================================================================
-           VIEW 6: THƯ VIỆN LABO & GIÁO TRÌNH Y DƯỢC (LIBRARY & LAB REFERENCE)
-           ================================================================= -->
-      <section id="view_library" class="hidden p-4 sm:p-8 max-w-6xl mx-auto space-y-8 pb-20">
-        <!-- Header -->
+      <!-- ========================================================= -->
+      <!-- VIEW 6: THƯ VIỆN LABO & GIÁO TRÌNH Y DƯỢC                 -->
+      <!-- ========================================================= -->
+      <div id="view_library" class="hidden p-4 sm:p-8 max-w-6xl mx-auto space-y-8 pb-20">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-theme">
           <div>
-            <div class="text-xs font-mono-code text-sub">CLINICAL REFERENCE LIBRARY & LAB VALUES</div>
-            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">📚 Kho Tài Liệu Giáo Trình & Bảng Tra Cứu Labo Chuẩn</h2>
+            <div class="text-xs font-mono-code text-sub">CLINICAL REFERENCE LIBRARY &amp; LAB VALUES</div>
+            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">📚 Kho Tài Liệu Giáo Trình &amp; Bảng Tra Cứu Labo Chuẩn</h2>
           </div>
           <button onclick="switchView('dashboard')" class="px-3.5 py-2 rounded-xl text-xs font-semibold notion-surface text-main hover:opacity-80 transition">
             ← Quay Lại Dashboard
@@ -1164,7 +1283,7 @@
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-xs">
               <thead>
-                <tr class="border-b border-theme text-[10px] font-mono-code uppercase text-mute">
+                <tr class="border-b border-theme text-[11px] font-mono-code uppercase text-mute">
                   <th class="py-2.5 px-3">Tên Chỉ Số / Xét Nghiệm</th>
                   <th class="py-2.5 px-3">Phân Loại</th>
                   <th class="py-2.5 px-3">Khoảng Giá Trị Bình Thường Chuẩn</th>
@@ -1180,7 +1299,7 @@
         <!-- Curated Medical Textbooks & Resources -->
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="font-editorial text-2xl sm:text-3xl text-main">Sách Giáo Trình & Cổng Tra Cứu Y Khoa Uy Tín</h3>
+            <h3 class="font-editorial text-2xl sm:text-3xl text-main">Sách Giáo Trình &amp; Cổng Tra Cứu Y Khoa Uy Tín</h3>
             <span class="text-xs font-mono-code text-mute">Tài liệu khuyến cáo học tập</span>
           </div>
 
@@ -1199,13 +1318,89 @@
             </div>
             <div class="p-4 rounded-2xl notion-surface space-y-2">
               <span class="text-2xl">🔬</span>
-              <h4 class="font-bold text-main text-sm">Robbins & Cotran Bệnh Học Cơ Sở</h4>
+              <h4 class="font-bold text-main text-sm">Robbins &amp; Cotran Bệnh Học Cơ Sở</h4>
               <p class="text-xs text-sub leading-relaxed">Cốt lõi giải phẫu bệnh học và sinh bệnh học tế bào giúp hiểu rõ cơ chế tổn thương mô của mọi bệnh lý lâm sàng.</p>
               <div class="pt-2 text-[11px] font-mono-code text-emerald-700 dark:text-emerald-400">Elsevier Health</div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- VIEW 7: FIGMA DESIGN SYSTEM TOKENS & AI MASTER PROMPT     -->
+      <!-- ========================================================= -->
+      <div id="view_tokens" class="hidden p-4 sm:p-8 max-w-5xl mx-auto space-y-6 pb-20">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-theme">
+          <div>
+            <div class="text-xs font-mono-code text-sub">FIGMA AUTO-LAYOUT &amp; AI DEVELOPER HANDOFF</div>
+            <h2 class="font-editorial text-3xl sm:text-4xl text-main mt-1">🎨 Hệ Thống Design System &amp; Prompt Đưa Cho AI Code</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="copyAiMasterPrompt()" class="px-4 py-2 rounded-xl text-xs font-semibold btn-primary-theme shadow-sm">
+              🤖 Copy Prompt Cho AI Code
+            </button>
+            <button onclick="switchView('dashboard')" class="px-3.5 py-2 rounded-xl text-xs font-semibold notion-surface text-main hover:opacity-80 transition">
+              ← Quay lại Dashboard
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Master Prompt Box -->
+        <div class="p-5 rounded-2xl notion-surface space-y-3 border-l-4" style="border-left-color: var(--accent-primary);">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-[11px] font-mono-code uppercase px-2 py-0.5 rounded badge-emerald font-semibold">Đã kiểm chuẩn chống "Giao diện ngu"</span>
+              <h3 class="font-editorial text-2xl text-main mt-1">Bản Đặc Tả Kỹ Thuật (Master Prompt) Để Dán Cho AI Code</h3>
+            </div>
+            <button onclick="copyAiMasterPrompt()" class="px-3.5 py-1.5 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80">
+              📋 Copy toàn bộ Prompt này
+            </button>
+          </div>
+          <p class="text-xs text-sub">
+            Khi bạn yêu cầu AI (Cursor, Claude, ChatGPT, v0...) code giao diện Notion này, đừng chỉ bảo "hãy code giao diện đẹp". Hãy copy nguyên khối đặc tả dưới đây dán vào cho nó — đảm bảo AI sẽ dựng chuẩn 100% tỷ lệ, màu sắc và font chữ:
+          </p>
+          <pre id="aiMasterPromptBox" class="p-4 rounded-xl notion-subtle text-[11px] font-mono-code text-main overflow-x-auto whitespace-pre-wrap leading-relaxed">Hãy code giao diện Web/Notion Template ngành Y Dược (MedicaOS) theo đúng Design System sau:
+1. BẢNG MÀU (CSS Variables - Tuyệt đối không dùng nền trắng #FFF chói mắt hay xanh dương mặc định):
+   - Canvas Background: #F7F4EE (Warm Alabaster Paper)
+   - Card Surface: #FFFFFF với viền mảnh 1px solid #E4DFD3 và shadow: 0 10px 30px -10px rgba(47,82,67,0.08)
+   - Subtle Callout / Sidebar: #EFECE4
+   - Primary Accent: #2F5243 (Botanical Sage Green) | Secondary Accent: #C86D51 (Terracotta) | Gold: #B68D40
+   - Text Primary: #1F2924 | Text Secondary: #5A655E | Muted: #88938C
+2. TYPOGRAPHY (3-Font Pairing):
+   - Heading (H1, H2, Card Titles, Pomodoro Number): 'Instrument Serif' (hoặc Playfair Display), font-weight 400, tracking-tight.
+   - Body UI: 'Plus Jakarta Sans' (12px - 14px).
+   - số liệu xét nghiệm, mã học phần, liều thuốc, đồng hồ: 'JetBrains Mono' (10px - 12px).
+3. BỐ CỤC AUTO-LAYOUT (12-Column Bento Grid Bất Đối Xứng):
+   - Sidebar trái cố định: rộng 256px, padding 16px.
+   - Banner bìa trên cùng: cao 240px (tỷ lệ 16:9), bo góc dưới, có Floating Icon 80x80px đè lên mép dưới (-mt-10).
+   - Hàng Bento chính chia 12 cột (gap 24px):
+     + Cột Trái (3/12 cột): Đồng hồ Pomodoro Lo-fi + Công cụ tính nhanh CrCl (Cockcroft-Gault) &amp; Chỉ số Labo chuẩn.
+     + Cột Giữa (6/12 cột): Gallery Học phần Y Dược (2 thẻ lớn có ảnh minh họa cao 144px + 2 thẻ compact).
+     + Cột Phải (3/12 cột): Lịch trực lâm sàng (border-left 4px) + Checklist + Thẻ nhớ nhanh Active Recall (Cloze Flip).
+   - Phần dưới: Bảng Database Spaced Repetition (R1-&gt;R4) và Lưới 3 cột Dược điển (Drug Formulary Cards).
+4. QUY TẮC CẤM (ANTI-PATTERNS):
+   - CẤM chia 3 cột bằng nhau kiểu trang admin cũ; CẤM dùng màu neon xanh dương/tím gradient; mọi thẻ đều bo góc 16px (rounded-2xl).</pre>
+        </div>
+
+        <!-- Audit Report -->
+        <div class="p-5 rounded-2xl notion-surface space-y-3">
+          <h3 class="font-editorial text-2xl text-main">✅ Các Điểm Đã Được Rà Soát &amp; Tinh Chỉnh Hoàn Thiện:</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-3.5 rounded-xl notion-subtle space-y-1">
+              <div class="font-bold text-main">1. Chuẩn hóa tương phản Dark Mode</div>
+              <p class="text-sub">Đã sửa toàn bộ nhãn trạng thái sang biến màu ngữ nghĩa tự động sáng lên khi bật chế độ <strong>Trực Đêm (Midnight)</strong>.</p>
+            </div>
+            <div class="p-3.5 rounded-xl notion-subtle space-y-1">
+              <div class="font-bold text-main">2. Thêm 6 Widget Y Dược Thực Chiến</div>
+              <p class="text-sub">Bổ sung máy tính CrCl Cockcroft-Gault, BMI &amp; BSA, thang điểm Glasgow, CURB-65, CHA2DS2-VASc và quy tắc Parkland.</p>
+            </div>
+            <div class="p-3.5 rounded-xl notion-subtle space-y-1">
+              <div class="font-bold text-main">3. Tích hợp Prompt Đặc Tả Cho AI</div>
+              <p class="text-sub">Cung cấp sẵn câu lệnh cấu trúc CSS Variables, 3-Font Pairing và lưới 3-6-3 để AI code ra giao diện y hệt bản thiết kế mẫu.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </main>
 
@@ -1231,7 +1426,7 @@
         <p id="subjectModalSummary" class="text-xs sm:text-sm text-sub leading-relaxed"></p>
       </div>
       <div>
-        <h4 class="text-xs font-mono-code uppercase text-mute mb-2">Các Chuyên Đề & Điểm Ghi Nhớ Cốt Lõi:</h4>
+        <h4 class="text-xs font-mono-code uppercase text-mute mb-2">Các Chuyên Đề &amp; Điểm Ghi Nhớ Cốt Lõi:</h4>
         <ul id="subjectModalNotes" class="space-y-2"></ul>
       </div>
       <div class="pt-3 border-t border-theme flex justify-end">
@@ -1272,7 +1467,7 @@
           </div>
         </div>
         <div class="p-3 rounded-xl badge-rose space-y-1">
-          <strong class="block">⚠ Cảnh báo & Chống chỉ định đặc biệt:</strong>
+          <strong class="block">⚠ Cảnh báo &amp; Chống chỉ định đặc biệt:</strong>
           <p id="drugModalWarning"></p>
         </div>
         <div class="p-3 rounded-xl notion-callout space-y-1">
@@ -1315,10 +1510,10 @@
             <label class="text-mute font-mono-code block mb-1">Chuyên khoa</label>
             <select id="inputDrugCategory" class="w-full px-3 py-2 rounded-xl notion-subtle text-main">
               <option value="khangsinh">Kháng sinh</option>
-              <option value="timmach">Tim mạch & Huyết áp</option>
-              <option value="noitiet">Nội tiết & Tiểu đường</option>
-              <option value="tieuhoa">Tiêu hóa & Gan mật</option>
-              <option value="giamdau">Giảm đau & Kháng viêm</option>
+              <option value="timmach">Tim mạch &amp; Huyết áp</option>
+              <option value="noitiet">Nội tiết &amp; Tiểu đường</option>
+              <option value="tieuhoa">Tiêu hóa &amp; Gan mật</option>
+              <option value="giamdau">Giảm đau &amp; Kháng viêm</option>
             </select>
           </div>
         </div>
@@ -1398,7 +1593,7 @@
         </div>
         <!-- SOAP 4 Components Inputs -->
         <div>
-          <label class="text-mute font-mono-code block mb-1"><strong>S (Subjective)</strong> — Lý do vào viện & Bệnh sử (mỗi dòng 1 ý) *</label>
+          <label class="text-mute font-mono-code block mb-1"><strong>S (Subjective)</strong> — Lý do vào viện &amp; Bệnh sử (mỗi dòng 1 ý) *</label>
           <textarea id="inputSoapS" rows="3" placeholder="Khó thở khi nằm đầu thấp 3 ngày nay&#10;Phù 2 cẳng chân tăng dần&#10;Tiền sử tăng huyết áp 10 năm..." class="w-full px-3 py-2 rounded-xl notion-subtle text-main"></textarea>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1416,11 +1611,11 @@
           </div>
         </div>
         <div>
-          <label class="text-mute font-mono-code block mb-1"><strong>A (Assessment)</strong> — Biện luận lâm sàng & Chẩn đoán phân biệt *</label>
+          <label class="text-mute font-mono-code block mb-1"><strong>A (Assessment)</strong> — Biện luận lâm sàng &amp; Chẩn đoán phân biệt *</label>
           <textarea id="inputSoapA" rows="2" placeholder="Hội chứng suy tim sung huyết cấp thỏa tiêu chuẩn Framingham..." class="w-full px-3 py-2 rounded-xl notion-subtle text-main"></textarea>
         </div>
         <div>
-          <label class="text-mute font-mono-code block mb-1"><strong>P (Plan)</strong> — Kế hoạch điều trị & Y lệnh thuốc (mỗi dòng 1 y lệnh)</label>
+          <label class="text-mute font-mono-code block mb-1"><strong>P (Plan)</strong> — Kế hoạch điều trị &amp; Y lệnh thuốc (mỗi dòng 1 y lệnh)</label>
           <textarea id="inputSoapP" rows="2" placeholder="Nằm đầu cao 45 độ, thở oxy 3L/phút&#10;Furosemide 40mg IV tiêm chậm..." class="w-full px-3 py-2 rounded-xl notion-subtle text-main"></textarea>
         </div>
         <div>

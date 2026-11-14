@@ -83,7 +83,7 @@ function switchView(viewName, updateHash = true) {
   if (updateHash && window.location.hash !== '#' + viewName) {
     window.location.hash = viewName;
   }
-  const views = ['dashboard', 'soap', 'drugs', 'calculators', 'flashcards', 'library'];
+  const views = ['dashboard', 'soap', 'drugs', 'calculators', 'flashcards', 'library', 'tokens'];
 
   views.forEach(v => {
     const el = document.getElementById('view_' + v);
@@ -104,9 +104,9 @@ function switchView(viewName, updateHash = true) {
 
     if (sideBtn) {
       if (v === viewName) {
-        sideBtn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold notion-surface text-main transition shadow-sm';
+        sideBtn.className = 'w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium notion-surface text-main transition shadow-sm';
       } else {
-        sideBtn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition';
+        sideBtn.className = 'w-full flex items-center justify-between px-2.5 py-2 rounded-xl font-medium text-sub hover:opacity-80 transition';
       }
     }
   });
@@ -128,7 +128,7 @@ function switchView(viewName, updateHash = true) {
 // URL Hash routing listener
 window.addEventListener('hashchange', () => {
   const hash = window.location.hash.replace('#', '');
-  if (['dashboard', 'soap', 'drugs', 'calculators', 'flashcards', 'library'].includes(hash)) {
+  if (['dashboard', 'soap', 'drugs', 'calculators', 'flashcards', 'library', 'tokens'].includes(hash)) {
     switchView(hash, false);
   }
 });
@@ -165,9 +165,7 @@ function updatePomodoroDisplay() {
   const str = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
 
   const disp = document.getElementById('pomoDisplay');
-  const sideDisp = document.getElementById('sidePomoDisplay');
   if (disp) disp.textContent = str;
-  if (sideDisp) sideDisp.textContent = str;
 
   // Title tag update
   if (AppState.pomoRunning) {
@@ -175,20 +173,15 @@ function updatePomodoroDisplay() {
   } else {
     document.title = `MedicaOS — Website Học Tập & Bệnh Án Y Dược`;
   }
-
-  // Update session counter
-  const counterEl = document.getElementById('pomoSessionCounter');
-  if (counterEl) {
-    counterEl.textContent = `${AppState.pomoCompletedCount}/12 phiên (${(AppState.pomoCompletedCount * 0.4).toFixed(1)}h)`;
-  }
 }
 
 function togglePomodoro() {
   const btn = document.getElementById('pomoToggleBtn');
   if (AppState.pomoRunning) {
     clearInterval(AppState.pomoInterval);
+    AppState.pomoInterval = null;
     AppState.pomoRunning = false;
-    if (btn) btn.textContent = 'Tiếp tục học';
+    if (btn) btn.textContent = 'Tiếp tục';
   } else {
     AppState.pomoRunning = true;
     if (btn) btn.textContent = 'Tạm dừng';
@@ -198,13 +191,14 @@ function togglePomodoro() {
         updatePomodoroDisplay();
       } else {
         clearInterval(AppState.pomoInterval);
+        AppState.pomoInterval = null;
         AppState.pomoRunning = false;
         AppState.pomoCompletedCount++;
         AppState.saveToStorage('pomo');
-        if (btn) btn.textContent = 'Bắt đầu';
+        if (btn) btn.textContent = 'Bắt đầu học';
         medicalAudio.playCompletionChime();
-        showToast('🎉 Chúc mừng! Bạn vừa hoàn thành 1 phiên học Pomodoro!');
-        resetPomodoro(5 * 60, 'Nghỉ ngắn 5m');
+        showToast('🎉 Hoàn thành 1 phiên Pomodoro 25 phút!');
+        resetPomodoro(5 * 60, 'Nghỉ 5m');
       }
     }, 1000);
   }
@@ -227,12 +221,11 @@ function resetPomodoro(seconds = 25 * 60, modeLabel = 'Focus 25m') {
 }
 
 // Quick CrCl on Dashboard
-function calcQuickCrCl() {
-  const age = parseFloat(document.getElementById('quickCrclAge')?.value) || 0;
-  const weight = parseFloat(document.getElementById('quickCrclWeight')?.value) || 0;
-  const scr = parseFloat(document.getElementById('quickCrclScr')?.value) || 0;
-  const isFemale = document.getElementById('quickCrclFemale')?.checked;
-  const out = document.getElementById('quickCrclResult');
+function calcCrClQuick() {
+  const age = parseFloat(document.getElementById('crclAge')?.value) || 0;
+  const weight = parseFloat(document.getElementById('crclWeight')?.value) || 0;
+  const scr = parseFloat(document.getElementById('crclScr')?.value) || 0;
+  const out = document.getElementById('crclResultValue');
 
   if (!out) return;
   if (age <= 0 || weight <= 0 || scr <= 0) {
@@ -240,79 +233,40 @@ function calcQuickCrCl() {
     return;
   }
 
-  let crcl = ((140 - age) * weight) / (72 * scr);
-  if (isFemale) crcl *= 0.85;
-
+  const crcl = ((140 - age) * weight) / (72 * scr);
   out.textContent = crcl.toFixed(1) + ' mL/phút';
 }
 
 // =====================================================================
 // SUBJECT GALLERY & MODAL
 // =====================================================================
-function renderSubjects(category = 'all', searchQuery = '') {
-  const container = document.getElementById('subjectGalleryGrid');
-  if (!container) return;
-
-  const query = searchQuery.trim().toLowerCase();
-  const filtered = AppState.subjects.filter(sub => {
-    const matchCat = category === 'all' || sub.category === category;
-    const matchQuery = !query ||
-      sub.title.toLowerCase().includes(query) ||
-      sub.code.toLowerCase().includes(query) ||
-      sub.tags.some(t => t.toLowerCase().includes(query));
-    return matchCat && matchQuery;
+function filterCategory(cat) {
+  const cards = document.querySelectorAll('#subjectGalleryGrid > div');
+  cards.forEach(card => {
+    const cardCat = card.getAttribute('data-cat');
+    card.style.display = (cat === 'all' || cardCat === cat) ? '' : 'none';
   });
 
-  if (filtered.length === 0) {
-    container.innerHTML = '<div class="col-span-2 p-8 text-center text-mute text-xs">Không tìm thấy học phần nào phù hợp với từ khóa.</div>';
-    return;
-  }
-
-  container.innerHTML = filtered.map(sub => `
-    <div onclick="openSubjectModal('${sub.id}')" class="group relative rounded-2xl notion-surface overflow-hidden hover:shadow-lg transition cursor-pointer flex flex-col justify-between">
-      <div class="h-32 sm:h-36 overflow-hidden relative">
-        <img src="${sub.image}" alt="${sub.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-        <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
-          <span class="text-[10px] font-mono-code font-bold px-2 py-0.5 rounded bg-white/90 text-slate-900 shadow-sm">${sub.code}</span>
-          <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-full ${sub.status === 'Trọng tâm thi' ? 'badge-rose' : 'badge-emerald'}">${sub.status}</span>
-        </div>
-        <div class="absolute bottom-2 left-2.5 right-2.5 text-white">
-          <div class="text-[11px] opacity-80">${sub.lecturer} • ${sub.credits} tín chỉ</div>
-          <h3 class="font-editorial text-lg sm:text-xl font-medium leading-snug truncate">${sub.title}</h3>
-        </div>
-      </div>
-      <div class="p-3.5 space-y-2.5">
-        <p class="text-xs text-sub line-clamp-2 leading-relaxed">${sub.summary}</p>
-        <div class="space-y-1">
-          <div class="flex justify-between text-[11px] font-mono-code text-mute">
-            <span>Tiến độ học tập</span>
-            <span class="font-semibold text-main">${sub.progress}%</span>
-          </div>
-          <div class="w-full h-1.5 rounded-full bg-black/10 overflow-hidden">
-            <div class="h-full rounded-full transition-all duration-500" style="width: ${sub.progress}%; background-color: var(--accent-primary);"></div>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-1 pt-1">
-          ${sub.tags.map(t => `<span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle text-sub">#${t}</span>`).join('')}
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function filterSubjectCategory(cat) {
-  ['all', 'y', 'duoc'].forEach(c => {
-    const btn = document.getElementById('subCatBtn_' + c);
-    if (btn) {
-      if (c === cat) {
-        btn.className = 'px-3 py-1 rounded-lg notion-surface font-semibold text-main text-xs transition';
+  const btnMap = { all: 'catBtnAll', y: 'catBtnY', duoc: 'catBtnDuoc' };
+  for (const k in btnMap) {
+    const b = document.getElementById(btnMap[k]);
+    if (b) {
+      if (k === cat) {
+        b.className = 'px-2.5 py-1 rounded-lg notion-surface font-semibold text-main transition';
       } else {
-        btn.className = 'px-3 py-1 rounded-lg text-sub hover:opacity-80 text-xs transition';
+        b.className = 'px-2.5 py-1 rounded-lg text-sub hover:opacity-80 transition';
       }
     }
+  }
+}
+
+function filterSubjectsBySearch(q) {
+  const query = (q || '').toLowerCase();
+  const cards = document.querySelectorAll('#subjectGalleryGrid > div');
+  cards.forEach(card => {
+    const title = (card.getAttribute('data-title') || '').toLowerCase();
+    card.style.display = (!query || title.includes(query)) ? '' : 'none';
   });
-  renderSubjects(cat);
 }
 
 function openSubjectModal(subjectId) {
@@ -351,7 +305,8 @@ function closeSubjectModal() {
 // =====================================================================
 function renderSpacedRepTable() {
   const tbody = document.getElementById('spacedRepTableBody');
-  const filterVal = document.getElementById('spacedRepFilter')?.value || 'all';
+  const filterSelect = document.getElementById('srFilterSelect');
+  const filterVal = filterSelect ? filterSelect.value : 'all';
   if (!tbody) return;
 
   const items = AppState.spacedRep.filter(item => {
@@ -369,14 +324,14 @@ function renderSpacedRepTable() {
     else if (item.status === 'Đang ngấm') badgeClass = 'badge-amber';
 
     return `
-      <tr class="row-hover-theme transition border-b border-theme/60">
-        <td class="py-3 px-3 font-semibold text-main text-xs sm:text-sm">${item.title}</td>
+      <tr class="row-hover-theme transition">
+        <td class="py-3 px-3 font-medium text-main">${item.title}</td>
         <td class="py-3 px-3"><span class="px-2 py-0.5 rounded notion-subtle text-sub font-mono-code text-[11px]">${item.subject}</span></td>
         <td class="py-3 px-3"><span class="px-2.5 py-0.5 rounded-full font-mono-code text-[11px] font-semibold ${badgeClass}">● ${item.status}</span></td>
-        <td class="py-3 px-3 font-mono-code text-sub text-xs">Chu kỳ R${item.cycle}</td>
-        <td class="py-3 px-3 font-mono-code font-semibold text-main text-xs">${item.nextDate}</td>
+        <td class="py-3 px-3 font-mono-code text-sub">Chu kỳ R${item.cycle}</td>
+        <td class="py-3 px-3 font-mono-code text-main">${item.nextDate}</td>
         <td class="py-3 px-3 text-right">
-          <button onclick="reviewSpacedTopic(${item.id})" class="px-3 py-1 rounded-xl notion-subtle hover:opacity-80 text-main font-mono-code text-[11px] transition">
+          <button onclick="reviewSpacedTopic(${item.id})" class="px-2.5 py-1 rounded-lg notion-subtle hover:opacity-80 text-main font-mono-code text-[11px] transition">
             ✓ Đã ôn hôm nay
           </button>
         </td>
@@ -396,7 +351,7 @@ function reviewSpacedTopic(id) {
 
   AppState.saveToStorage('spaced');
   renderSpacedRepTable();
-  showToast(`Đã ghi nhận ôn R${item.cycle} cho "${item.title}" (+${days} ngày)!`);
+  showToast(`Đã ghi nhận chu kỳ R${item.cycle} cho "${item.title}" (+${days} ngày)!`);
 }
 
 // =====================================================================
@@ -422,14 +377,13 @@ function renderDrugCardsGrid(filterCategory = 'all', searchQuery = '') {
 
   const emptyHtml = '<div class="col-span-full p-8 text-center text-mute text-xs">Không tìm thấy hoạt chất nào phù hợp.</div>';
   const cardsHtml = filtered.length === 0 ? emptyHtml : filtered.map(d => `
-    <div onclick="openDrugDetailModal('${d.id}')" class="p-4 rounded-2xl notion-surface space-y-3 flex flex-col justify-between hover:shadow-md transition cursor-pointer">
+    <div onclick="openDrugDetailModal('${d.id}')" class="p-4 rounded-2xl notion-surface space-y-2.5 flex flex-col justify-between hover:shadow-md transition cursor-pointer">
       <div class="space-y-2">
         <div class="flex items-center justify-between gap-2">
-          <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-full notion-subtle text-sub truncate max-w-[200px]">${d.group}</span>
-          <span class="text-sm">💊</span>
+          <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-md notion-subtle text-sub leading-normal inline-block">${d.group}</span>
+          <span class="text-xs">💊</span>
         </div>
         <h3 class="font-editorial text-2xl text-main">${d.name}</h3>
-        <p class="text-[11px] text-mute font-mono-code">Biệt dược: ${d.tradeNames}</p>
         <p class="text-xs text-sub leading-relaxed line-clamp-3"><strong class="text-main">Cơ chế (MOA):</strong> ${d.moa}</p>
       </div>
 
@@ -442,6 +396,10 @@ function renderDrugCardsGrid(filterCategory = 'all', searchQuery = '') {
 
   if (containerDashboard) containerDashboard.innerHTML = cardsHtml;
   if (containerAll) containerAll.innerHTML = cardsHtml;
+}
+
+function renderDrugCards() {
+  renderDrugCardsGrid();
 }
 
 function filterDrugCategory(cat) {
@@ -498,6 +456,14 @@ function closeNewDrugModal() {
   document.getElementById('newDrugModal')?.classList.add('hidden');
 }
 
+function openNewFlashcardModal() {
+  openNewDrugModal();
+}
+
+function closeNewFlashcardModal() {
+  closeNewDrugModal();
+}
+
 function saveNewDrug() {
   const name = document.getElementById('inputDrugName')?.value.trim();
   const trade = document.getElementById('inputDrugTrade')?.value.trim() || 'Generic';
@@ -538,144 +504,66 @@ function saveNewDrug() {
 // CLINICAL SOAP NOTES & CORNELL CASE MANAGER
 // =====================================================================
 function renderSoapView() {
-  const listContainer = document.getElementById('soapCasesList');
-  const headingEl = document.getElementById('soapCasesHeading');
-  if (!listContainer) return;
-
-  if (headingEl) {
-    headingEl.textContent = `Danh Sách Ca Bệnh (${AppState.soapNotes.length})`;
-  }
+  const selector = document.getElementById('soapCaseSelector');
+  const sideBadge = document.getElementById('sideSoapBadge');
+  if (sideBadge) sideBadge.textContent = `${AppState.soapNotes.length} ca`;
 
   if (!AppState.selectedSoapId && AppState.soapNotes.length > 0) {
     AppState.selectedSoapId = AppState.soapNotes[0].id;
   }
 
-  // Render list of cases
-  listContainer.innerHTML = AppState.soapNotes.map(note => {
-    const isSelected = note.id === AppState.selectedSoapId;
-    return `
-      <div onclick="selectSoapCase('${note.id}')" class="p-3.5 rounded-xl cursor-pointer transition ${isSelected ? 'notion-surface ring-2 ring-emerald-600/70 shadow-sm' : 'notion-subtle hover:opacity-80'}">
-        <div class="flex items-center justify-between text-[11px] font-mono-code mb-1">
-          <span class="font-bold text-main">${note.code}</span>
-          <span class="px-2 py-0.5 rounded-full badge-amber font-semibold">${note.status}</span>
-        </div>
-        <div class="text-xs font-semibold text-main truncate">${note.patientName} (${note.age}t, ${note.gender})</div>
-        <div class="text-[11px] text-mute truncate">${note.department}</div>
-      </div>
-    `;
-  }).join('');
+  if (selector) {
+    selector.innerHTML = AppState.soapNotes.map(n => `
+      <option value="${n.id}" ${n.id === AppState.selectedSoapId ? 'selected' : ''}>
+        ${n.code} • ${n.patientName} (${n.diagnosisPrimary})
+      </option>
+    `).join('');
+  }
 
-  renderActiveSoapDetail();
+  const note = AppState.soapNotes.find(n => n.id === AppState.selectedSoapId) || AppState.soapNotes[0];
+  if (!note) return;
+
+  // Metadata block
+  const codeEl = document.getElementById('soapMetaCode');
+  const diagEl = document.getElementById('soapMetaDiag');
+  const lecEl = document.getElementById('soapMetaLecturer');
+  const statusEl = document.getElementById('soapMetaStatus');
+
+  if (codeEl) codeEl.textContent = `${note.code} • ${note.department}`;
+  if (diagEl) diagEl.textContent = note.diagnosisPrimary;
+  if (lecEl) lecEl.textContent = note.lecturer;
+  if (statusEl) statusEl.textContent = `● ${note.status}`;
+
+  // SOAP 4 Quadrants
+  const sList = document.getElementById('soapDetailS');
+  if (sList) {
+    sList.innerHTML = note.subjective.map(s => `<li>${s}</li>`).join('');
+  }
+
+  const vitalsEl = document.getElementById('soapDetailOVitals');
+  const examEl = document.getElementById('soapDetailOExam');
+  const labEl = document.getElementById('soapDetailOLab');
+  if (vitalsEl) vitalsEl.innerHTML = `<strong>Sinh hiệu:</strong> ${note.objective.vitals}`;
+  if (examEl) examEl.innerHTML = `<strong>Khám:</strong> ${note.objective.physicalExam}`;
+  if (labEl) labEl.innerHTML = `<strong>Cận lâm sàng:</strong> ${note.objective.labResults}`;
+
+  const icdEl = document.getElementById('soapDetailAIcd');
+  const aEl = document.getElementById('soapDetailA');
+  if (icdEl) icdEl.textContent = `ICD-10: ${note.icd10}`;
+  if (aEl) aEl.textContent = note.assessment;
+
+  const pList = document.getElementById('soapDetailP');
+  if (pList) {
+    pList.innerHTML = note.plan.map(p => `<li>${p}</li>`).join('');
+  }
+
+  const cornellEl = document.getElementById('soapDetailCornell');
+  if (cornellEl) cornellEl.textContent = note.cornellTakeaway;
 }
 
 function selectSoapCase(id) {
   AppState.selectedSoapId = id;
   renderSoapView();
-}
-
-function renderActiveSoapDetail() {
-  const note = AppState.soapNotes.find(n => n.id === AppState.selectedSoapId);
-  const container = document.getElementById('soapActiveDetailContainer');
-  if (!container || !note) return;
-
-  container.innerHTML = `
-    <!-- Case Header & Actions -->
-    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-theme">
-      <div>
-        <div class="text-[11px] font-mono-code text-mute uppercase">${note.department} • ${note.date}</div>
-        <h2 class="font-editorial text-2xl sm:text-3xl text-main mt-0.5">${note.code}: ${note.patientName} (${note.gender}, ${note.age} tuổi)</h2>
-        <div class="text-xs text-sub mt-0.5">Giảng viên / Bác sĩ hướng dẫn: <strong class="text-main">${note.lecturer}</strong></div>
-      </div>
-      <div class="flex items-center gap-2">
-        <button onclick="printCurrentSoap()" class="px-3 py-1.5 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition flex items-center gap-1.5">
-          <span>🖨 In / PDF</span>
-        </button>
-        <button onclick="copySoapMarkdown()" class="px-3 py-1.5 rounded-xl text-xs font-mono-code notion-subtle text-main hover:opacity-80 transition flex items-center gap-1.5">
-          <span>📋 Copy Markdown</span>
-        </button>
-        <button onclick="openNewSoapModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold btn-primary-theme transition flex items-center gap-1.5">
-          <span>+ Bệnh án mới</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Properties Summary -->
-    <div class="p-4 rounded-2xl notion-surface grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-      <div>
-        <div class="text-[10px] font-mono-code uppercase text-mute">Chẩn đoán sơ bộ</div>
-        <div class="font-semibold text-main mt-0.5 line-clamp-2">${note.diagnosisPrimary}</div>
-      </div>
-      <div>
-        <div class="text-[10px] font-mono-code uppercase text-mute">Mã ICD-10</div>
-        <div class="font-mono-code text-xs text-main mt-0.5 font-bold">${note.icd10}</div>
-      </div>
-      <div>
-        <div class="text-[10px] font-mono-code uppercase text-mute">Thời điểm ghi nhận</div>
-        <div class="font-mono-code text-xs text-main mt-0.5">${note.date}</div>
-      </div>
-      <div>
-        <div class="text-[10px] font-mono-code uppercase text-mute">Trạng thái duyệt</div>
-        <div class="font-mono-code text-[11px] inline-block px-2 py-0.5 rounded-full badge-amber font-semibold mt-0.5">${note.status}</div>
-      </div>
-    </div>
-
-    <!-- SOAP 4-QUADRANT MATRIX -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- S: Subjective -->
-      <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4" style="border-top-color: var(--accent-primary);">
-        <div class="flex items-center justify-between">
-          <span class="font-editorial text-2xl text-main">S — Subjective (Cơ năng & Bệnh sử)</span>
-          <span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">Hỏi bệnh</span>
-        </div>
-        <ul class="text-xs text-sub space-y-1.5 list-disc pl-4 leading-relaxed">
-          ${note.subjective.map(s => `<li>${s}</li>`).join('')}
-        </ul>
-      </div>
-
-      <!-- O: Objective -->
-      <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4" style="border-top-color: var(--accent-secondary);">
-        <div class="flex items-center justify-between">
-          <span class="font-editorial text-2xl text-main">O — Objective (Thực thể & Labo)</span>
-          <span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">Khám & CLS</span>
-        </div>
-        <div class="space-y-2 text-xs leading-relaxed">
-          <div class="p-2.5 rounded-xl notion-subtle font-mono-code text-[11px] text-main">
-            <strong>Sinh hiệu:</strong> ${note.objective.vitals}
-          </div>
-          <div><strong class="text-main">Khám thực thể:</strong> <span class="text-sub">${note.objective.physicalExam}</span></div>
-          <div><strong class="text-main">Cận lâm sàng:</strong> <span class="text-sub">${note.objective.labResults}</span></div>
-        </div>
-      </div>
-
-      <!-- A: Assessment -->
-      <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4" style="border-top-color: var(--accent-gold);">
-        <div class="flex items-center justify-between">
-          <span class="font-editorial text-2xl text-main">A — Assessment (Biện luận & Chẩn đoán)</span>
-          <span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">ICD-10: ${note.icd10}</span>
-        </div>
-        <p class="text-xs text-sub leading-relaxed">${note.assessment}</p>
-      </div>
-
-      <!-- P: Plan -->
-      <div class="p-5 rounded-2xl notion-surface space-y-2.5 border-t-4" style="border-top-color: #059669;">
-        <div class="flex items-center justify-between">
-          <span class="font-editorial text-2xl text-main">P — Plan (Y lệnh & Phác đồ điều trị)</span>
-          <span class="text-[10px] font-mono-code px-2 py-0.5 rounded notion-subtle">Y lệnh</span>
-        </div>
-        <ul class="text-xs text-sub space-y-1.5 list-disc pl-4 leading-relaxed">
-          ${note.plan.map(p => `<li>${p}</li>`).join('')}
-        </ul>
-      </div>
-    </div>
-
-    <!-- Cornell Summary Takeaway -->
-    <div class="p-5 rounded-2xl notion-callout space-y-2 border-l-4" style="border-left-color: var(--accent-primary);">
-      <div class="text-xs font-mono-code uppercase text-mute">📌 Tóm Tắt Cornell Lâm Sàng (Key Takeaway Khi Trình Bệnh)</div>
-      <p class="text-xs sm:text-sm text-main leading-relaxed font-medium">
-        ${note.cornellTakeaway}
-      </p>
-    </div>
-  `;
 }
 
 function openNewSoapModal() {
@@ -690,10 +578,10 @@ function saveNewSoapCase() {
   const patient = document.getElementById('inputSoapPatient')?.value.trim();
   const age = parseInt(document.getElementById('inputSoapAge')?.value) || 30;
   const gender = document.getElementById('inputSoapGender')?.value || 'Nam';
-  const dept = document.getElementById('inputSoapDept')?.value.trim() || 'Khoa Nội Tổng Quát';
+  const dept = document.getElementById('inputSoapDept')?.value.trim() || 'Khoa Nội Tim Mạch — BV ĐHYD';
   const lecturer = document.getElementById('inputSoapLecturer')?.value.trim() || 'BS. Hướng Dẫn';
   const diag = document.getElementById('inputSoapDiagnosis')?.value.trim();
-  const icd = document.getElementById('inputSoapIcd')?.value.trim() || 'R69';
+  const icd = document.getElementById('inputSoapIcd')?.value.trim() || 'I50.9';
   const sText = document.getElementById('inputSoapS')?.value.trim();
   const vitals = document.getElementById('inputSoapVitals')?.value.trim();
   const exam = document.getElementById('inputSoapExam')?.value.trim();
@@ -703,7 +591,7 @@ function saveNewSoapCase() {
   const cornell = document.getElementById('inputSoapCornell')?.value.trim() || 'Theo dõi diễn tiến lâm sàng sát sao.';
 
   if (!patient || !diag || !sText || !aText) {
-    showToast('Vui lòng điền đủ: Tên bệnh nhân, Chẩn đoán, Triệu chứng cơ năng (S) và Biện luận (A)!');
+    showToast('Vui lòng điền đủ: Tên bệnh nhân, Chẩn đoán, Triệu chứng (S) và Biện luận (A)!');
     return;
   }
 
@@ -716,7 +604,7 @@ function saveNewSoapCase() {
     department: dept,
     date: new Date().toLocaleDateString('vi-VN'),
     lecturer,
-    status: 'Bản thảo sinh viên',
+    status: 'Sẵn sàng trình bệnh',
     diagnosisPrimary: diag,
     icd10: icd,
     subjective: sText.split('\n').filter(line => line.trim().length > 0),
@@ -743,7 +631,7 @@ function printCurrentSoap() {
 }
 
 function copySoapMarkdown() {
-  const note = AppState.soapNotes.find(n => n.id === AppState.selectedSoapId);
+  const note = AppState.soapNotes.find(n => n.id === AppState.selectedSoapId) || AppState.soapNotes[0];
   if (!note) return;
 
   const md = `# BỆNH ÁN LÂM SÀNG: ${note.code}
@@ -776,8 +664,32 @@ ${note.plan.map(p => `- ${p}`).join('\n')}
 }
 
 // =====================================================================
-// ACTIVE RECALL FLASHCARDS (3D FLIP STUDY MODE)
+// ACTIVE RECALL FLASHCARDS (CLOZE & 3D STUDY MODE)
 // =====================================================================
+function toggleQuickFlashcardAnswer() {
+  const ans = document.getElementById('quickFlashcardAnswer');
+  const btn = document.getElementById('btnRevealAnswer');
+  if (!ans || !btn) return;
+  const isHidden = ans.classList.toggle('hidden');
+  btn.textContent = isHidden ? '👁 Hiện đáp án' : '🙈 Ẩn đáp án';
+}
+
+function nextQuickFlashcard() {
+  AppState.currentFlashcardIdx = (AppState.currentFlashcardIdx + 1) % AppState.flashcards.length;
+  const item = AppState.flashcards[AppState.currentFlashcardIdx];
+  const qEl = document.getElementById('quickFlashcardPrompt');
+  const aEl = document.getElementById('quickFlashcardAnswer');
+  const idxEl = document.getElementById('flashcardIndexLabel');
+  const btn = document.getElementById('btnRevealAnswer');
+  if (qEl && item) qEl.textContent = item.question;
+  if (aEl && item) {
+    aEl.innerHTML = '✓ Đáp án: ' + item.answer;
+    aEl.classList.add('hidden');
+  }
+  if (idxEl) idxEl.textContent = `${AppState.currentFlashcardIdx + 1} / ${AppState.flashcards.length}`;
+  if (btn) btn.textContent = '👁 Hiện đáp án';
+}
+
 function renderFlashcardStudy() {
   if (AppState.flashcards.length === 0) return;
   const idx = AppState.currentFlashcardIdx;
@@ -794,12 +706,8 @@ function renderFlashcardStudy() {
   if (subjectEl) subjectEl.textContent = 'Môn: ' + card.subject;
   if (indexEl) indexEl.textContent = `Thẻ ${idx + 1} / ${AppState.flashcards.length}`;
 
-  // Reset flip to front
   AppState.flashcardFlipped = false;
   if (innerEl) innerEl.classList.remove('flipped');
-
-  // Render quick flip on Dashboard too
-  renderQuickFlashcardDashboard();
 }
 
 function flipStudyCard() {
@@ -810,19 +718,17 @@ function flipStudyCard() {
 }
 
 function rateFlashcard(rating) {
-  // Spaced repetition progression
   const card = AppState.flashcards[AppState.currentFlashcardIdx];
   const ratingsMap = {
-    again: { name: 'Chưa thuộc (R1)', days: 1, toast: 'Sẽ ôn lại vào ngày mai!' },
-    hard: { name: 'Khó (R2)', days: 3, toast: 'Lịch ôn tiếp theo: 3 ngày tới.' },
-    good: { name: 'Tốt (R3)', days: 7, toast: 'Lịch ôn tiếp theo: 7 ngày tới.' },
-    easy: { name: 'Thuộc lòng (R4)', days: 14, toast: 'Đã thuộc! Hẹn gặp lại sau 14 ngày.' }
+    again: { name: 'Chưa thuộc (R1)', toast: 'Sẽ ôn lại vào ngày mai!' },
+    hard: { name: 'Khó (R2)', toast: 'Lịch ôn tiếp theo: 3 ngày tới.' },
+    good: { name: 'Tốt (R3)', toast: 'Lịch ôn tiếp theo: 7 ngày tới.' },
+    easy: { name: 'Thuộc lòng (R4)', toast: 'Đã thuộc! Hẹn gặp lại sau 14 ngày.' }
   };
 
   const choice = ratingsMap[rating] || ratingsMap.good;
   showToast(`${card.subject}: ${choice.toast}`);
 
-  // Move to next card
   AppState.currentFlashcardIdx = (AppState.currentFlashcardIdx + 1) % AppState.flashcards.length;
   renderFlashcardStudy();
 }
@@ -837,86 +743,23 @@ function prevStudyCard() {
   renderFlashcardStudy();
 }
 
-function renderQuickFlashcardDashboard() {
-  const card = AppState.flashcards[AppState.currentFlashcardIdx];
-  const qEl = document.getElementById('quickFlashcardPrompt');
-  const aEl = document.getElementById('quickFlashcardAnswer');
-  const idxEl = document.getElementById('quickFlashcardIndex');
-  const btn = document.getElementById('quickRevealBtn');
-
-  if (qEl && card) qEl.textContent = card.question;
-  if (aEl && card) {
-    aEl.innerHTML = card.answer;
-    aEl.classList.add('hidden');
-  }
-  if (idxEl) idxEl.textContent = `${AppState.currentFlashcardIdx + 1} / ${AppState.flashcards.length}`;
-  if (btn) btn.textContent = '👁 Hiện đáp án';
-}
-
-function toggleQuickDashboardAnswer() {
-  const aEl = document.getElementById('quickFlashcardAnswer');
-  const btn = document.getElementById('quickRevealBtn');
-  if (!aEl || !btn) return;
-  const isHidden = aEl.classList.toggle('hidden');
-  btn.textContent = isHidden ? '👁 Hiện đáp án' : '🙈 Ẩn đáp án';
-}
-
-function nextQuickDashboardCard() {
-  AppState.currentFlashcardIdx = (AppState.currentFlashcardIdx + 1) % AppState.flashcards.length;
-  renderQuickFlashcardDashboard();
-}
-
 // =====================================================================
 // CLINICAL CHECKLIST
 // =====================================================================
-function renderChecklist() {
-  const container = document.getElementById('clinicalChecklist');
-  const badge = document.getElementById('taskCounterBadge');
-  if (!container) return;
-
-  const doneCount = AppState.checklist.filter(item => item.done).length;
-  if (badge) badge.textContent = `${doneCount}/${AppState.checklist.length} xong`;
-
-  container.innerHTML = AppState.checklist.map(item => `
-    <label class="flex items-center justify-between p-2 rounded-xl notion-subtle cursor-pointer hover:opacity-90 transition group">
-      <div class="flex items-center gap-2.5 min-w-0">
-        <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleChecklistItem(${item.id})" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer" />
-        <span class="text-xs truncate ${item.done ? 'line-through text-mute' : 'text-main'}">${item.text}</span>
-      </div>
-      <button onclick="deleteChecklistItem(${item.id}); event.preventDefault();" class="opacity-0 group-hover:opacity-100 text-mute hover:text-rose-500 text-xs px-1.5 transition">✕</button>
-    </label>
-  `).join('');
-}
-
-function toggleChecklistItem(id) {
-  const item = AppState.checklist.find(i => i.id === id);
-  if (item) {
-    item.done = !item.done;
-    AppState.saveToStorage('checklist');
-    renderChecklist();
-  }
-}
-
-function addChecklistItem() {
-  const input = document.getElementById('newChecklistInput');
-  const text = input?.value.trim();
-  if (!text) return;
-
-  AppState.checklist.push({
-    id: Date.now(),
-    text,
-    done: false
+function updateTaskCount() {
+  const checks = document.querySelectorAll('#clinicalChecklist input[type="checkbox"]');
+  let done = 0;
+  checks.forEach(chk => {
+    const span = chk.nextElementSibling;
+    if (chk.checked) {
+      done++;
+      if (span) span.className = 'line-through text-mute leading-snug';
+    } else {
+      if (span) span.className = 'text-main leading-snug';
+    }
   });
-  input.value = '';
-  AppState.saveToStorage('checklist');
-  renderChecklist();
-  showToast('Đã thêm mục mới vào checklist!');
-}
-
-function deleteChecklistItem(id) {
-  AppState.checklist = AppState.checklist.filter(i => i.id !== id);
-  AppState.saveToStorage('checklist');
-  renderChecklist();
+  const badge = document.getElementById('taskCounterBadge');
+  if (badge) badge.textContent = `${done}/${checks.length} xong`;
 }
 
 // =====================================================================
@@ -1042,8 +885,14 @@ window.addEventListener('keydown', (e) => {
 });
 
 // =====================================================================
-// DATA BACKUP & RESTORE
+// DATA BACKUP & RESTORE & AI PROMPT COPY
 // =====================================================================
+function copyAiMasterPrompt() {
+  const box = document.getElementById('aiMasterPromptBox');
+  const txt = box ? box.textContent : '';
+  copyToClipboard(txt, 'Đã copy Master Prompt! Bạn có thể dán thẳng cho AI code ngay!');
+}
+
 function exportAllDataJson() {
   const data = {
     version: '1.0',
@@ -1135,27 +984,26 @@ function copyToClipboard(text, message) {
 // INITIALIZATION ON DOM READY
 // =====================================================================
 window.addEventListener('DOMContentLoaded', () => {
-  // Restore theme without initial toast
+  // Restore theme without toast
   setTheme(AppState.theme, false);
 
   // Check URL hash for direct routing (#soap, #drugs, etc.)
   const initialHash = window.location.hash.replace('#', '');
-  if (['dashboard', 'soap', 'drugs', 'calculators', 'flashcards', 'library'].includes(initialHash)) {
+  if (['dashboard', 'soap', 'drugs', 'calculators', 'flashcards', 'library', 'tokens'].includes(initialHash)) {
     switchView(initialHash, false);
   } else {
     switchView(AppState.currentView, false);
   }
 
   // Initialize Views and Components
-  renderSubjects();
   renderSpacedRepTable();
   renderDrugCardsGrid();
-  renderChecklist();
   renderSoapView();
   renderFlashcardStudy();
   renderLabValuesTable();
   updatePomodoroDisplay();
 
   // Run quick CrCl calculation
-  calcQuickCrCl();
+  calcCrClQuick();
+  updateTaskCount();
 });

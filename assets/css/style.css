@@ -249,7 +249,7 @@ body {
 .audio-bar {
   display: inline-block;
   width: 3px;
-  background-color: var(--accent-primary);
+  background-color: #34D399;
   border-radius: 2px;
 }
 
